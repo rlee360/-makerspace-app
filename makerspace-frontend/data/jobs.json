@@ -1,0 +1,18 @@
+{
+    "jobs":[
+        {"title": "camera_stand15.stl", "id":1},
+        {"title": "rocktopus15.stl", "id":2},
+        {"title": "flange3000.stl", "id":3}
+    ], 
+    "printer1": [
+        { "title": "iris15.stl"}, 
+        { "title": "gyroid_dissected15.stl"}
+    ],
+    "printer2": [
+        {"title": "aerospike_nozzle15.stl"}, 
+        {"title": "brain_model15.stl"}
+    ],
+    "completed":[
+        {"title": "dsadas.stl15", "id":15}
+    ]
+}

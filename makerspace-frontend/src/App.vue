@@ -6,7 +6,7 @@
         <draggable class="draggable-list" :list="tasks.jobs" group="tasks">
           <div v-for="(idea, i) in tasks.jobs" :key="i">
             <div class="bg-white mt-3 p-2 shadow border rounded">
-              <p>{{ idea }}</p>
+              <p>{{ idea.title }}</p>
             </div>
           </div>
         </draggable>
@@ -17,7 +17,7 @@
           <draggable class="draggable-list" :list="tasks.printer1" group="tasks">
             <div v-for="(job, i) in tasks.printer1" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ job }}</p>
+                <p>{{ job.title }}</p>
               </div>
             </div>
           </draggable>
@@ -27,7 +27,7 @@
           <draggable class="draggable-list" :list="tasks.printer2" group="tasks">
             <div v-for="(job, i) in tasks.printer2" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ job }}</p>
+                <p>{{ job.title }}</p>
               </div>
             </div>
           </draggable>
@@ -39,7 +39,7 @@
           <draggable class="draggable-list" :list="tasks.completed" group="tasks">
             <div v-for="(task, i) in tasks.completed" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ task }}</p>
+                <p>{{ task.title }}</p>
               </div>
             </div>
           </draggable>
@@ -58,13 +58,31 @@ export default {
   data() {
     return {
       tasks: {
-        jobs: ["camera_stand.stl", "rocktopus.stl", "flange.stl"],
-        printer1: ["iris.stl", "gyroid_dissected.stl"],
+        jobs: [ ],
+        printer1: ["iris1.stl", "gyroid_dissected1.stl"],
         printer2: ["aerospike_nozzle.stl", "brain_model.stl"],
-        completed: [],
+        completed: [ ],
       },
     };
   },
+  mounted() {
+    fetch('http://localhost:3000/jobs')
+      .then(res => res.json())
+      .then(data => this.tasks.jobs = data)
+      .catch(err=> console.log(err.message))
+    fetch('http://localhost:3000/printer1')
+      .then(res => res.json())
+      .then(data => this.tasks.printer1 = data)
+      .catch(err=> console.log(err.message))
+    fetch('http://localhost:3000/printer2')
+      .then(res => res.json())
+      .then(data => this.tasks.printer2 = data)
+      .catch(err=> console.log(err.message))
+    fetch('http://localhost:3000/completed')
+      .then(res => res.json())
+      .then(data => this.tasks.completed = data)
+      .catch(err=> console.log(err.message))
+  }
 };
 </script>
 

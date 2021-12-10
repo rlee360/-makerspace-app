@@ -3,8 +3,6 @@ import os
 import bson
 import pymongo
 from bson.son import SON
-import textwrap
-from tabulate import tabulate
 from bson.decimal128 import Decimal128
 
 """
@@ -41,7 +39,7 @@ material_schema = {
 job_schema = {
     "title": "job",
     "required": [
-        "name",
+        "filename",
         "email",
         "material", # this will be an object id str?
         "shells",
@@ -51,7 +49,7 @@ job_schema = {
         "status"
     ],
     "properties": {
-        "name": {"bsonType": "string"},
+        "filename": {"bsonType": "string"},
         "email": {"bsonType": "string"},
         "material": {"bsonType": ["string", "objectId"]},
         "shells": {"bsonType": "int"},
@@ -172,7 +170,7 @@ material_docs = [
 ]
 
 job_doc = {
-    "name": "benchy.stl",
+    "filename": "benchy.stl",
     "email": "test@cooper.edu",
     "material": "",  # this relies on diff materials being available
     "shells": 2,
@@ -181,6 +179,16 @@ job_doc = {
     "notes": "",
     "status": "inactive",
     "machine": "FDM 1"
+}
+
+job_doc = {
+    "filename": "benchy.stl", # upload button
+    "email": "test@cooper.edu", # type in box
+    "material": "", # drop down menu
+    "shells": 2, # >= 0 increment/decrement button
+    "infill": 20, # >= 0, <= 100 increment/decrement button
+    "top_bottom": 4, # >= 0 increment/decrement button
+    "notes": "", # text box, resizeable
 }
 
 operator_doc = {

@@ -192,7 +192,7 @@ operator_doc = {
 }
 
 machine_doc = {
-    "_id" : "FDM 1",
+    "_id" : "FDM_1",
     "type" : "FDM",
     "brand" : "Prusa",
     "model" : "i3 MK3",
@@ -203,17 +203,17 @@ machine_doc = {
 }
 
 machine_docs = [
-    ["FDM 1", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
-    ["FDM 2", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
-    ["FDM 3", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
-    ["FDM 4", "FDM", "Prusa", "i3 MK3", [210, 210, 250], True, ["x belt is too loose."], []],
-    ["FDM 5", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
-    ["FDM 6", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
-    ["FDM 7", "FDM", "Tinkerine", "Ditto Pro", [215, 165, 220], True, ["bed needs to be leveled", "nozzle is clogged"], []],
+    ["FDM_1", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
+    ["FDM_2", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
+    ["FDM_3", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
+    ["FDM_4", "FDM", "Prusa", "i3 MK3", [210, 210, 250], True, ["x belt is too loose."], []],
+    ["FDM_5", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
+    ["FDM_6", "FDM", "Prusa", "i3 MK3", [210, 210, 250], False, [], []],
+    ["FDM_7", "FDM", "Tinkerine", "Ditto Pro", [215, 165, 220], True, ["bed needs to be leveled", "nozzle is clogged"], []],
 
-    ["SLA 1", "SLA", "Elegoo", "Mars", [120, 68, 155], False, [], []],
+    ["SLA_1", "SLA", "Elegoo", "Mars", [120, 68, 155], False, [], []],
 
-    ["Laser 1", "Laser", "Glowforge", "Pro", [304, 518, 0.6], False, [], []]
+    ["Laser_1", "Laser", "Glowforge", "Pro", [304, 518, 0.6], False, [], []]
 ]
 
 def machines_list_to_dict(doc):

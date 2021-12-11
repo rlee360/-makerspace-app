@@ -47,10 +47,10 @@ def view_request(id):
 @app.route('/request/create', methods=['GET', 'POST'])
 def create_request():
     if request.method == 'POST':
-        file = request.files['file']
+        files = request.files['files']
 
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_DIR'], filename))
+        filename = secure_filename(files.filename)
+        files.save(os.path.join(app.config['UPLOAD_DIR'], filename))
 
         post_data = request.form.to_dict(flat=False)
         print(post_data)

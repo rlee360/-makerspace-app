@@ -17,6 +17,13 @@ import base64
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
+def create_message(sender, to, subject, message_test):
+    message = MIMEText(message_test)
+    message['to'] = to
+    message['from'] = sender
+    message['subject'] = subject
+    return {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
+
 class Gmail():
     def __init__(self):
         creds = None
@@ -36,13 +43,6 @@ class Gmail():
                 token.write(creds.to_json())
         
         self.service = build('gmail', 'v1', credentials=creds)
-    
-    def create_message(self, sender, to, subject, message_test):
-        message = MIMEText(message_test)
-        message['to'] = to
-        message['from'] = sender
-        message['subject'] = subject
-        return {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
     
     def send_message(self, message):
         try: 

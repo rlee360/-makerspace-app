@@ -41,6 +41,7 @@ job_schema = {
     "required": [
         "filename",
         "email",
+        "class_id",
         "material", # this will be an object id str?
         "shells",
         "infill",
@@ -51,6 +52,7 @@ job_schema = {
     "properties": {
         "filename": {"bsonType": "string"},
         "email": {"bsonType": "string"},
+        "class_id": {"bsonType": "string"},
         "material": {"bsonType": ["string", "objectId"]},
         "shells": {"bsonType": "int"},
         "infill" : {"bsonType": "int"},
@@ -171,6 +173,7 @@ material_docs = [
 job_doc = {
     "filename": "benchy.stl",
     "email": "test@cooper.edu",
+    "class_id": "ME412",
     "material": "",  # this relies on diff materials being available
     "shells": 2,
     "infill": 20,

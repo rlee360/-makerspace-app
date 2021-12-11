@@ -16,7 +16,7 @@ from helper import *
 from config import *
 
 UPLOAD_DIR = './uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'md'}
 
 app = Flask(__name__)
 app.config['UPLOAD_DIR'] = UPLOAD_DIR
@@ -47,11 +47,17 @@ def view_request(id):
 @app.route('/request/create', methods=['GET', 'POST'])
 def create_request():
     if request.method == 'POST':
-        post_data = request.get_json()
+        file = request.files['file']
+
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_DIR'], filename))
+
+        post_data = request.form.to_dict(flat=False)
+        print(post_data)
 
         # parse and validate emails
         invalid_emails = []
-        parsed_emails = parse_emails(post_data['email'])
+        parsed_emails = parse_emails(post_data['email'][0])
 
         for email in parsed_emails:
             if not valid_email(email):

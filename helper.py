@@ -3,3 +3,4 @@ def valid_email(email):
 
 def parse_emails(emails):
     return emails.split(', ')
+    

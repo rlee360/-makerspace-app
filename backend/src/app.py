@@ -35,16 +35,16 @@ def get_status(id):
     # todo - database
     pass
 
-@app.route('/status/<string:id>')
+@app.route('/api/status/<string:id>')
 def show_status(id):
     status = get_status(escape(id))
 
-@app.route('/request/view/<string:id>')
+@app.route('/api/request/view/<string:id>')
 def view_request(id):
     print(type(collection.find_one({'_id': ObjectId(id)})))
     return jsonify(json.loads(json_util.dumps(collection.find_one({'_id': ObjectId(id)}))))
 
-@app.route('/request/create', methods=['GET', 'POST'])
+@app.route('/api/request/create', methods=['GET', 'POST'])
 def create_request():
     if request.method == 'POST':
         files = request.files['files']

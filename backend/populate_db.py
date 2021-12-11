@@ -181,15 +181,15 @@ job_doc = {
     "machine": "FDM 1"
 }
 
-job_doc = {
-    "filename": "benchy.stl", # upload button
-    "email": "test@cooper.edu", # type in box
-    "material": "", # drop down menu
-    "shells": 2, # >= 0 increment/decrement button
-    "infill": 20, # >= 0, <= 100 increment/decrement button
-    "top_bottom": 4, # >= 0 increment/decrement button
-    "notes": "", # text box, resizeable
-}
+# job_doc = {
+#     "filename": "benchy.stl", # upload button
+#     "email": "test@cooper.edu", # type in box
+#     "material": "", # drop down menu
+#     "shells": 2, # >= 0 increment/decrement button
+#     "infill": 20, # >= 0, <= 100 increment/decrement button
+#     "top_bottom": 4, # >= 0 increment/decrement button
+#     "notes": "", # text box, resizeable
+# }
 
 operator_doc = {
         "name": "John Smith",
@@ -251,12 +251,11 @@ def main():
     create_col_schema(db, "jobs", job_schema)
     create_col_schema(db, "operators", operator_schema)
     create_col_schema(db, "machines", machine_schema)
-    db["materials"].insert_one(material_doc)
+    db["materials"].insert_many(material_docs)
     db["jobs"].insert_one(job_doc)
     db["operators"].insert_one(operator_doc)
 
     machine_docs_dicts = map(machines_list_to_dict, machine_docs)
-
     db["machines"].insert_many(machine_docs_dicts)
 
 

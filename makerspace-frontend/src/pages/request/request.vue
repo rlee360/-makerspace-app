@@ -1,100 +1,146 @@
 <template>
   <div class="container mt-5 mb-5">
     <h1>REQUEST</h1>
-    <b-button>Push Me</b-button>
-    <div class="row">
-      <div class="col mx-2 px-2 py-3 bg-light border rounded">
-        <h6>New Jobs</h6>
-        <draggable class="draggable-list" :list="tasks.jobs" group="tasks">
-          <div v-for="(job, i) in tasks.jobs" :key="i">
-            <div class="bg-white mt-3 p-2 shadow border rounded">
-              <p>{{ job }}</p>
-            </div>
-          </div>
-        </draggable>
+      <div>
+      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <b-form-group id="input-group-2" label="Filename:" label-for="input-2">
+          <b-button>Open File</b-button>
+          <b-form-input
+            id="input-2"
+            v-model="form.filename"
+            placeholder="Filename"
+            required
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+          id="input-group-1"
+          label="Email address:"
+          label-for="input-1"
+          description="Please use your cooper.edu email">
+          <b-form-input
+            id="input-1"
+            v-model="form.email"
+            type="email"
+            placeholder="Enter email"
+            required
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            id="input-group-3"
+            label="Material:"
+            label-for="input-3">
+          <b-form-select
+            id="input-3"
+            v-model="form.material"
+            :options="material"
+            required
+          ></b-form-select>
+        </b-form-group>
+
+        <b-form-group
+          id="number1"
+          label="Shells"
+          label-for="number1"
+          >
+          <b-form-input
+            v-model="form.shells"
+            type="number"
+            max="100"
+            min="0"
+           ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+          id="number2"
+          label="Infill"
+          label-for="number2"
+          >
+          <b-form-input
+            v-model="form.infill"
+            type="number"
+            max="100"
+            min="0"
+           ></b-form-input>
+        </b-form-group>
+
+         <b-form-group
+          id="number3"
+          label="Top_bottom"
+          label-for="number3"
+          >
+          <b-form-input
+            v-model="form.top_bottom"
+            type="number"
+            max="100"
+            min="0"
+           ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            id="input4"
+          label="Enter notes"
+          label-for="input4" >
+          <b-form-textarea
+            id="textarea"
+            v-model="form.notes"
+            type="notes"
+            placeholder="Please give a short description of the project"
+            rows = "3"
+            max-rows="10"
+          ></b-form-textarea>
+          <pre class="mt-3 mb-0">{{ form.notes }}</pre>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
+      </b-form>
+      <b-card class="mt-3" header="Form Data Result">
+        <pre class="m-0">{{ form }}</pre>
+      </b-card>
       </div>
-      <div class="col">
-        <div class="col mx-2 px-2 py-3 bg-light border rounded">
-          <h6>Printer 1</h6>
-          <draggable class="draggable-list" :list="tasks.printer1" group="tasks">
-            <div v-for="(job, i) in tasks.printer1" :key="i">
-              <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ job }}</p>
-              </div>
-            </div>
-          </draggable>
-        </div>
-        <div class="col mx-2 px-2 py-3 bg-light border rounded">
-          <h6>Printer 2</h6>
-          <draggable class="draggable-list" :list="tasks.printer2" group="tasks">
-            <div v-for="(job, i) in tasks.printer2" :key="i">
-              <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ job }}</p>
-              </div>
-            </div>
-          </draggable>
-        </div>
-      </div>
-      <div class="col">
-        <div class="col mx-2 px-2 py-3 bg-light border rounded">
-          <h6>Completed</h6>
-          <draggable class="draggable-list" :list="tasks.completed" group="tasks">
-            <div v-for="(task, i) in tasks.completed" :key="i">
-              <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ task }}</p>
-              </div>
-            </div>
-          </draggable>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import draggable from "vuedraggable";
-import {Axios} from "axios";
-export default {
-  components: {
-    draggable,
-  },
-  data() {
-    return {
-      tasks: {
-        jobs: [ ],
-        printer1: ["iris1.stl", "gyroid_dissected1.stl"],
-        printer2: ["aerospike_nozzle.stl", "brain_model.stl"],
-        completed: [ ],
-      },
-      methods: {
-        onSubmit(event) {
-          // make a axios request
-          console.log("Submit button pressed!");
-        }
+  export default {
+    data() {
+      return {
+        form: {
+          email: '',
+          name: '',
+          material: null,
+          notes: '',
+          shells: "",
+          infill: "",
+          top_bottom:""
+        },
+        material: [{ text: 'Select One', value: null }, 'Material1', 'Material1', 'Material1', 'Material1'],
+        show: true
       }
-    };
-  },
-  async mounted() {
-    const res = await Axios.get("https://localhost:5000/api/get_filament");
-    console.log("Hello, My Linh");
+    },
+    methods: {
+      onSubmit(event) {
+        event.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
+      onReset(event) {
+        event.preventDefault()
+        // Reset our form values
+        this.form.filename = ''
+        this.form.email = ''
+        this.form.material = null
+        this.form.shells = ''
+        this.form.infill = ''
+        this.form.top_bottom = ''
+        this.form.notes = ''
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      }
+    }
   }
-
-
-};
 </script>
-
-<style scoped>
-h6 {
-  font-weight: 700;
-}
-.col {
-  height: 90vh;
-  overflow: auto;
-}
-.draggable-list {
-  min-height: 10vh;
-}
-.draggable-list > div {
-  cursor: pointer;
-}
-</style>

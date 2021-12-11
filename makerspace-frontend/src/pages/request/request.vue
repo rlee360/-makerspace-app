@@ -53,6 +53,7 @@
 
 <script>
 import draggable from "vuedraggable";
+import {Axios} from "axios";
 export default {
   components: {
     draggable,
@@ -65,10 +66,20 @@ export default {
         printer2: ["aerospike_nozzle.stl", "brain_model.stl"],
         completed: [ ],
       },
+      methods: {
+        onSubmit(event) {
+          // make a axios request
+          console.log("Submit button pressed!");
+        }
+      }
     };
   },
-  mounted() {
+  async mounted() {
+    const res = await Axios.get("https://localhost:5000/api/get_filament");
+    console.log("Hello, My Linh");
   }
+
+
 };
 </script>
 

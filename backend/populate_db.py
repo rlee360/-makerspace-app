@@ -60,6 +60,7 @@ job_schema = {
         "operator" : {"bsonType": ["string", "array"]},
         "machine" : {"bsonType": ["string", "objectId"]},
         "material_used" : {"bsonType": "int"},
+        "queue_position" : {"bsonType": "int"},
     }
 }
 
@@ -176,7 +177,8 @@ job_doc = {
     "top_bottom": 4,
     "notes": "",
     "status": "inactive",
-    "machine": "FDM 1"
+    "machine": "FDM_1",
+    "queue_position": 1,
 }
 
 # job_doc = {

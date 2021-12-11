@@ -7,7 +7,7 @@
           <draggable class="draggable-list" :list="tasks.printer1" group="tasks">
             <div v-for="(job, i) in tasks.jobs" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ job }}</p>
+                <p>{{ job.title }}</p>
               </div>
             </div>
           </draggable>
@@ -18,7 +18,7 @@
           <draggable class="draggable-list" :list="tasks.printer1" group="tasks">
             <div v-for="(job, i) in tasks.printer1" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ job }}</p>
+                <p>{{ job.title }}</p>
               </div>
             </div>
           </draggable>
@@ -28,7 +28,7 @@
           <draggable class="draggable-list" :list="tasks.printer2" group="tasks">
             <div v-for="(job, i) in tasks.printer2" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ job }}</p>
+                <p>{{ job.title }}</p>
               </div>
             </div>
           </draggable>
@@ -40,7 +40,7 @@
           <draggable class="draggable-list" :list="tasks.completed" group="tasks">
             <div v-for="(task, i) in tasks.completed" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
-                <p>{{ task }}</p>
+                <p>{{ task.title }}</p>
               </div>
             </div>
           </draggable>
@@ -59,9 +59,9 @@ export default {
   data() {
     return {
       tasks: {
-        jobs: [ "iris2.stl" ],
-        printer1: ["iris1.stl", "gyroid_dissected1.stl"],
-        printer2: ["aerospike_nozzle.stl", "brain_model.stl"],
+        jobs: [  ],
+        printer1: [ ],
+        printer2: [ ],
         completed: [ ],
       },
     };

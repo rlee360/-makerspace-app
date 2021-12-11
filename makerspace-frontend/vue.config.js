@@ -14,6 +14,13 @@ module.exports = {
             title: 'Operator View',
             chunks: ['chunk-vendors', 'chunk-common', 'operator']
         },
+        'testing': {
+            entry: './src/pages/testing/main.js',
+            template: 'src/pages/testing/testing.html',
+            filename: 'testing.html',
+            title: 'Testing View',
+            chunks: ['chunk-vendors', 'chunk-common', 'testing']
+        },
     }
 }
 

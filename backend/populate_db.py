@@ -89,7 +89,6 @@ machine_schema = {
         "brand",
         "model",
         "build_volume",
-        "compatible_filaments",
         "maintenance"
     ],
     "properties": {
@@ -97,7 +96,6 @@ machine_schema = {
         "type": {"bsonType": "string"},
         "brand": {"bsonType": "string"},
         "build_volume": {"bsonType": "array"},
-        "compatible_filaments": {"bsonType": "array"},
         "maintenance": {"bsonType": "bool"},
         "notes": {"bsonType": "array"},
         "jobs": {"bsonType": "array"},

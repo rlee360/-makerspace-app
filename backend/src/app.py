@@ -5,25 +5,16 @@ from markupsafe import escape
 from werkzeug.utils import secure_filename
 import os
 
-from bson.objectid import ObjectId
-from bson import json_util
-
-from pymongo import MongoClient
-
 from flask_cors import CORS
 
 from helper import *
-from config import *
+from db_queries import *
 
 UPLOAD_DIR = './uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'md'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'md', 'stl', 'dwg', 'dxf', 'svg'}
 
 app = Flask(__name__)
 app.config['UPLOAD_DIR'] = UPLOAD_DIR
-
-client = MongoClient('localhost', 27017)
-db = client[MONGO_DB]
-collection = db['requests']
 
 CORS(app, resources={r'/*': {'origins': '*'}})
 
@@ -35,14 +26,15 @@ def get_status(id):
     # todo - database
     pass
 
+# I think these next two functions can be merged into one func
 @app.route('/api/status/<string:id>')
 def show_status(id):
     status = get_status(escape(id))
 
 @app.route('/api/request/view/<string:id>')
 def view_request(id):
-    print(type(collection.find_one({'_id': ObjectId(id)})))
-    return jsonify(json.loads(json_util.dumps(collection.find_one({'_id': ObjectId(id)}))))
+    query_result = query_job(escape(id)) # needs to be escaped as well?
+    return jsonify(json.loads(json_util.dumps(query_result)))
 
 @app.route('/api/request/create', methods=['GET', 'POST'])
 def create_request():
@@ -70,10 +62,10 @@ def create_request():
         else: 
             post_data['email'] = parsed_emails
         
-        print(post_data)
-        document = collection.insert_one(post_data)
+        print(post_data, type(post_data))
+        inserted_id = insert_job(post_data)
 
-        return jsonify({'status': 'success', 'id': str(document.inserted_id)})
+        return jsonify({'status': 'success', 'id': str(inserted_id)})
     return
 
 # https://flask.palletsprojects.com/en/2.0.x/patterns/fileuploads/

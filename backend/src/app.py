@@ -41,13 +41,14 @@ def view_request(id):
 @app.route('/api/request/create', methods=['GET', 'POST'])
 def create_request():
     if request.method == 'POST':
+        # file handling
         files = request.files['files']
 
         filename = secure_filename(files.filename)
         files.save(os.path.join(app.config['UPLOAD_DIR'], filename))
 
+        # convert request form to mutable dict
         post_data = request.form.to_dict(flat=False)
-        print(post_data)
 
         # parse and validate emails
         invalid_emails = []
@@ -56,16 +57,33 @@ def create_request():
         for email in parsed_emails:
             if not valid_email(email):
                 invalid_emails.append(email)
-        
-        print(parsed_emails)
-        
+
         if invalid_emails != []:
             return jsonify({'error': "Following emails are not cooper.edu: {}".format(invalid_emails)})
         else: 
             post_data['email'] = parsed_emails
-        
-        print(post_data, type(post_data))
+
+        # one element to array
+        post_data['name'] = post_data['name'][0]
+        post_data['notes'] = post_data['notes'][0]
+        post_data['filename'] = post_data['filename'][0]
+        post_data['class_id'] = post_data['class_id'][0]
+
+        # cast values to integer
+        post_data['shells'] = int(post_data['shells'][0])
+        post_data['infill'] = int(post_data['infill'][0])
+        post_data['top_bottom'] = int(post_data['top_bottom'][0])
+
+        # add default values
+        post_data['status'] = 'inactive'
+        post_data['operator'] = ''
+        post_data['machine'] = ''
+        post_data['material_used'] = 0
+        post_data['queue_position'] = 0
+
         inserted_id = insert_job(post_data)
 
+        print(post_data)
+        
         return jsonify({'status': 'success', 'id': str(inserted_id)})
     return

@@ -8,4 +8,5 @@ curl -X POST \
      -F infill='3' \
      -F top_bottom='4' \
      -F filename='part.stl' \
+     -F class_id='ME240' \
      http://localhost:5000/api/request/create

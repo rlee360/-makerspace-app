@@ -41,6 +41,7 @@ job_schema = {
     "required": [
         "filename",
         "email",
+        "name",
         "class_id",
         "material", # this will be an object id str?
         "shells",
@@ -52,6 +53,7 @@ job_schema = {
     "properties": {
         "filename": {"bsonType": "string"},
         "email": {"bsonType": "string"},
+        "name": {"bsonType": "string"},
         "class_id": {"bsonType": "string"},
         "material": {"bsonType": ["string", "objectId"]},
         "shells": {"bsonType": "int"},

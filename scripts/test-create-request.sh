@@ -1,5 +1,5 @@
 curl -X POST \
-     -F files=@README.md \
+     -F files=@../README.md \
      -F email='test1@cooper.edu, test2@cooper.edu' \
      -F name='henry son' \
      -F material='material1' \
@@ -8,4 +8,4 @@ curl -X POST \
      -F infill='3' \
      -F top_bottom='4' \
      -F filename='part.stl' \
-     http://localhost:5000/request/create
+     http://localhost:5000/api/request/create

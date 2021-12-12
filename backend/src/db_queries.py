@@ -13,13 +13,13 @@ db = client["makerspace"]
 
 
 def query_job(query_id):
-    res = db["jobs"].find_one({'_id': query_id})
+    res = db["jobs"].find_one({'_id': ObjectId(query_id)})
     print(res)
     return res
 
 def insert_job(data):
-    inserted_id = db["jobs"].insert_one(data)
-    return inserted_id
+    document = db["jobs"].insert_one(data)
+    return document.inserted_id
 
 
 

@@ -33,12 +33,40 @@ def send_mail():
     except Exception as e:
         return jsonify({'status': 'failed'})
 
+@app.route('/api/material')
+def view_all_material():
+    return jsonify(json.loads(json_util.dumps(query_all_materials())))
+
+@app.route('/api/material/add', methods=['POST'])
+def add_material():
+    post_data = request.form.to_dict(flat=False)
+
+    post_data['type'] = post_data['type'][0]
+    post_data['material'] = post_data['material'][0]
+    post_data['color'] = post_data['color'][0]
+    post_data['brand'] = post_data['brand'][0]
+    post_data['link'] = post_data['link'][0]
+
+    post_data['grams_remaining'] = float(post_data['grams_remaining'][0])
+    post_data['price'] = float(post_data['price'][0])
+    post_data['valid_machines'] = post_data['valid_machines'][0].split(', ')
+
+    if 'operator_notes' not in post_data:
+        post_data['operator_notes'] = []
+    
+    if 'notes' not in post_data:
+        post_data['notes'] = []
+
+    print(post_data)
+    inserted_id = insert_material(post_data)
+    return jsonify({'status': 'success', 'id': str(inserted_id)})
+
 @app.route('/api/request/status/<string:id>')
 def view_request(id):
     query_result = query_job(escape(id)) # needs to be escaped as well?
     return jsonify(json.loads(json_util.dumps(query_result)))
 
-@app.route('/api/request/create', methods=['GET', 'POST'])
+@app.route('/api/request/create', methods=['POST'])
 def create_request():
     if request.method == 'POST':
         # file handling
@@ -84,6 +112,6 @@ def create_request():
         inserted_id = insert_job(post_data)
 
         print(post_data)
-        
+
         return jsonify({'status': 'success', 'id': str(inserted_id)})
     return

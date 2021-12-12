@@ -3,14 +3,14 @@ import os
 from bson.objectid import ObjectId
 from bson import json_util
 
-__all__ = ["query_job", "insert_job"]
-
 with open('../db/mongo_uri.txt') as f:
     mongo_uri = f.readline().strip()
 
 client = pymongo.MongoClient(mongo_uri)
 db = client["makerspace"]
 
+def query_all_materials():
+    return db['materials'].find({})
 
 def query_job(query_id):
     res = db["jobs"].find_one({'_id': ObjectId(query_id)})
@@ -21,5 +21,7 @@ def insert_job(data):
     document = db["jobs"].insert_one(data)
     return document.inserted_id
 
-
+def insert_material(data):
+    document = db["materials"].insert_one(data)
+    return document.inserted_id
 

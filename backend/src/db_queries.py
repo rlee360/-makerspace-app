@@ -17,6 +17,10 @@ def filter_material(query):
     res = db['materials'].find(query)
     return res
 
+def filter_requests(query):
+    res = db['jobs'].find(query)
+    return res
+
 def query_job(query_id):
     if query_id == 'all':
         res = db["jobs"].find()

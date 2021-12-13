@@ -79,6 +79,16 @@ def _view_request(id):
     print(query_result)
     return jsonify(json.loads(json_util.dumps(query_result)))
 
+@request_bp.route('/filter', methods=['POST'])
+def _filter_requests():
+    post_data = request.form.to_dict(flat=False)
+    
+    for query in post_data:
+        post_data[query] = post_data[query][0]
+
+    res = filter_requests(post_data)
+    return jsonify({'status': 'success', 'filtered': json.loads(json_util.dumps(res))})
+
 @request_bp.route('/create', methods=['POST'])
 def _create_request():
     # file handling

@@ -2,9 +2,9 @@
   <div class="container mt-5 mb-5">
     <h1>OPERATOR</h1>
     <div class="row">
-      <div class="col mx-2 px-2 py-3 bg-light border rounded">
+      <div class="col mx-2 px-2 py-3 bg-light border rounded" style ="max-height:300px">
         <h6>New Jobs</h6>
-          <draggable class="draggable-list" :list="tasks.printer1" group="tasks">
+          <draggable class="draggable-list" :list="tasks.jobs" group="tasks">
             <div v-for="(job, i) in tasks.jobs" :key="i">
               <div class="bg-white mt-3 p-2 shadow border rounded">
                 <p>{{ job.title }}</p>
@@ -13,7 +13,7 @@
           </draggable>
         </div>
       <div class="col">
-        <div class="col mx-2 px-2 py-3 bg-light border rounded">
+        <div class="col mx-2 px-2 py-3 bg-light border rounded" style ="max-height:150px" >
           <h6>Printer 1</h6>
           <draggable class="draggable-list" :list="tasks.printer1" group="tasks">
             <div v-for="(job, i) in tasks.printer1" :key="i">
@@ -23,7 +23,7 @@
             </div>
           </draggable>
         </div>
-        <div class="col mx-2 px-2 py-3 bg-light border rounded">
+        <div class="col mx-2 px-2 py-3 bg-light border rounded" style ="max-height:150px">
           <h6>Printer 2</h6>
           <draggable class="draggable-list" :list="tasks.printer2" group="tasks">
             <div v-for="(job, i) in tasks.printer2" :key="i">
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="col mx-2 px-2 py-3 bg-light border rounded">
+        <div class="col mx-2 px-2 py-3 bg-light border rounded" style ="max-height:300px">
           <h6>Completed</h6>
           <draggable class="draggable-list" :list="tasks.completed" group="tasks">
             <div v-for="(task, i) in tasks.completed" :key="i">

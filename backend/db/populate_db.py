@@ -52,16 +52,16 @@ job_schema = {
     ],
     "properties": {
         "filename": {"bsonType": "string"},
-        "email": {"bsonType": "string"},
+        "email": {"bsonType": ["string", "array"]},
         "name": {"bsonType": "string"},
         "class_id": {"bsonType": "string"},
-        "material": {"bsonType": ["string", "objectId"]},
+        "material": {"bsonType": "string"},
         "shells": {"bsonType": "int"},
         "infill" : {"bsonType": "int"},
         "top_bottom" : {"bsonType": "int"},
         "notes": {"bsonType": "string"},
         "status" : {"bsonType": "string"}, # inactive, queued, active, completed
-        "operator" : {"bsonType": ["string", "array"]},
+        "operator" : {"bsonType": "string"},
         "machine" : {"bsonType": ["string", "objectId"]},
         "material_used" : {"bsonType": "int"},
         "queue_position" : {"bsonType": "int"},
@@ -175,6 +175,7 @@ material_docs = [
 job_doc = {
     "filename": "benchy.stl",
     "email": "test@cooper.edu",
+    "name": "test thing",
     "class_id": "ME412",
     "material": "",  # this relies on diff materials being available
     "shells": 2,

@@ -12,6 +12,10 @@ db = client["makerspace"]
 def query_all_materials():
     return db['materials'].find({})
 
+def query_material(query_id):
+    res = db['materials'].find_one({'_id': ObjectId(query_id)})
+    return res
+
 def query_job(query_id):
     res = db["jobs"].find_one({'_id': ObjectId(query_id)})
     print(res)
@@ -25,3 +29,9 @@ def insert_material(data):
     document = db["materials"].insert_one(data)
     return document.inserted_id
 
+def update_material(query_id, data):
+    db['materials'].update_one(
+        { '_id': ObjectId(query_id) }, 
+        { '$set': data }
+    )
+    return db['materials'].find_one({'_id': ObjectId(query_id)})

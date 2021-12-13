@@ -94,9 +94,6 @@ def _create_request():
     # file handling
     files = request.files['files']
 
-    filename = secure_filename(files.filename)
-    files.save(os.path.join('./uploads', filename))
-
     # convert request form to mutable dict
     post_data = request.form.to_dict(flat=False)
 
@@ -134,6 +131,12 @@ def _create_request():
 
     print(post_data)
 
-    inserted_id = insert_job(post_data)
+    inserted_id = str(insert_job(post_data))
+
+    new_filename = secure_filename(inserted_id + '-' + post_data['filename'])
+
+    update_request(inserted_id, {'filename': new_filename})
+
+    files.save(os.path.join('./uploads', new_filename))
 
     return jsonify({'status': 'success', 'id': str(inserted_id)})

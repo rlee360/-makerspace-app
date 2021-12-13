@@ -1,7 +1,8 @@
 # https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/
 
 from ctypes import resize
-from flask import Flask, flash, json, request, redirect, url_for, jsonify, Blueprint
+from flask import Flask, flash, json, request, redirect, url_for, jsonify
+from flask.blueprints import Blueprint
 from markupsafe import escape
 from werkzeug.utils import secure_filename
 

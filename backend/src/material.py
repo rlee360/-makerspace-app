@@ -1,16 +1,11 @@
 # https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/
 
-from ctypes import resize
-from flask import Flask, flash, json, request, redirect, url_for, jsonify
+from flask import json, request, jsonify
 from flask.blueprints import Blueprint
 from markupsafe import escape
-from werkzeug.utils import secure_filename
-
 from bson import json_util
 
-from helper import *
 from db_queries import *
-from mail import *
 
 material_bp = Blueprint('material', __name__, url_prefix='/api/material')
 

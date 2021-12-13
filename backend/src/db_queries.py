@@ -9,11 +9,12 @@ with open('../db/mongo_uri.txt') as f:
 client = pymongo.MongoClient(mongo_uri)
 db = client["makerspace"]
 
-def query_all_materials():
-    return db['materials'].find({})
-
 def query_material(query_id):
     res = db['materials'].find_one({'_id': ObjectId(query_id)})
+    return res
+
+def filter_material(query):
+    res = db['materials'].find(query)
     return res
 
 def query_job(query_id):

@@ -15,7 +15,7 @@ from mail import *
 material_bp = Blueprint('material', __name__, url_prefix='/api/material')
 
 @material_bp.route('/update', methods=['POST'])
-def api_update_material():
+def _update_material():
     post_data = request.form.to_dict(flat=False)
 
     update_id = post_data.pop('id', None)[0]
@@ -52,13 +52,32 @@ def api_update_material():
     print(res)
     return jsonify({'status': 'success', 'new_data': json.loads(json_util.dumps(res))})
 
-# view all materials available
-@material_bp.route('/', methods=['GET'])
-def view_all_material():
-    return jsonify(json.loads(json_util.dumps(query_all_materials())))
+@material_bp.route('/view/<string:id>', methods=['GET'])
+def _view_material(id):
+    query_result = query_material(escape(id)) # needs to be escaped as well?
+    print(query_result)
+    return jsonify(json.loads(json_util.dumps(query_result)))
+
+@material_bp.route('/filter', methods=['POST'])
+def _filter_material():
+    post_data = request.form.to_dict(flat=False)
+    
+    for query in post_data:
+        post_data[query] = post_data[query][0]
+        
+        if query in ['grams_remaining', 'price']:
+            if '=<' in post_data[query]:
+                post_data[query] = {'$lte': int(post_data[query].split('=<')[1])}
+            elif '=>' in post_data[query]:
+                post_data[query] = {'$gte': int(post_data[query].split('=>')[1])}
+            else:
+                return jsonify({'status': 'failed', 'error': 'invalid comparison for {}'.format(query)})
+
+    res = filter_material(post_data)
+    return jsonify({'status': 'success', 'filtered': json.loads(json_util.dumps(res))})
 
 @material_bp.route('/add', methods=['POST'])
-def add_material():
+def _add_material():
     post_data = request.form.to_dict(flat=False)
 
     post_data['type'] = post_data['type'][0]

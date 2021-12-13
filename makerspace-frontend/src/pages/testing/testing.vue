@@ -1,39 +1,29 @@
 <template>
-  <div class="container mt-5 mb-5">
-    <h1>Testing</h1>
-    <button @click="testClick">send help</button>
-    <p>{{this.test}}</p>
-  </div>
+  <!-- some code condensed for display reasons -->
+  <FormulateForm v-model="values" @submit="submitHandler">
+    <h2>Frosty's Frozen Treats</h2>
+    <FormulateInput
+      type="group"
+      name="flavors"
+      label="Create your custom order"
+      help="Choose your hand-packed pints whipped up by our expert servers"
+      add-label="+ Add Flavor"
+      validation="required"
+      :repeatable="true"
+    >
+      <div class="order">
+        <FormulateInput name="flavor" type="select" label="Flavor" validation="required" :options="{ vanilla: 'Vanilla', chocolate: 'Chocolate', strawberry: 'Strawberry', pineapple: 'Pineapple'}" />
+        <FormulateInput name="quantity" label="Quantity" type="number" min="1" validation="required|min:1" />
+      </div>
+    </FormulateInput>
+
+    <FormulateInput name="deliveryMethod" type="radio" label="Delivery Method" validation="required" :options="{ local: 'Local Pick-up', delivery: 'Delivery (5-mile radius)' }" />
+    <FormulateInput name="orderNotes" type="textarea" label="Order Notes" help="Allergies? Delivery instructions? Don't need the spoons? Let us know!" />
+    <FormulateInput type="submit" value="Place Order" />
+    <pre>{{ values }}</pre>
+  </FormulateForm>
 </template>
 
 <script>
-import axios from "axios";
-export default {
-  components: {},
-  data: () => ({test: ""}),
-  methods : {
-    async testClick() {
-      const res = await axios.post("http://localhost:5000/vuetest", {ttt : "data"});
-      this.test = res.data["Status"];
-    }
-  },
-  mounted() {
-  }
-}
+export default { data () { return { values: {} } }, methods: {submitHandler () { alert(`Thank you for your order!`) } } }
 </script>
-
-<style scoped>
-h6 {
-  font-weight: 700;
-}
-.col {
-  height: 90vh;
-  overflow: auto;
-}
-.draggable-list {
-  min-height: 10vh;
-}
-.draggable-list > div {
-  cursor: pointer;
-}
-</style>

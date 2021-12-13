@@ -2,145 +2,81 @@
   <div class="container mt-5 mb-5">
     <h1>REQUEST</h1>
       <div>
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-        <b-form-group id="input-group-2" label="Filename:" label-for="input-2">
-          <b-button>Open File</b-button>
-          <b-form-input
-            id="input-2"
-            v-model="form.filename"
-            placeholder="Filename"
-            required
-          ></b-form-input>
-        </b-form-group>
+      <FormulateForm class="inputs" @submit="onSubmit" v-model="values" @reset="onReset">
+         <FormulateInput
+              name="file"
+              label="File"
+              type="Open File"
+              :state = "Boolean(file1)"
+              placeholder="Choose a file or drop it here..."
+              drop-placeholder="Drop file here..."/>
+          <div class="mt-3">Selected file: {{ file1 ? file1.name : '' }}</div>
 
-        <b-form-group
-          id="input-group-1"
-          label="Email address:"
-          label-for="input-1"
-          description="Please use your cooper.edu email">
-          <b-form-input
-            id="input-1"
-            v-model="form.email"
+         <FormulateInput
             type="email"
+            name="email"
             placeholder="Enter email"
-            required
-          ></b-form-input>
-        </b-form-group>
+            label="Email address:"
+            validation="required|email"/>
 
-        <b-form-group
-            id="input-group-3"
-            label="Material:"
-            label-for="input-3">
-          <b-form-select
-            id="input-3"
-            v-model="form.material"
-            :options="material"
-            required
-          ></b-form-select>
-        </b-form-group>
+         <FormulateInput
+              name="material"
+              label="Material:"
+              type="select"
+              :options="{ material1: 'material1', material2:'material2'}"/>
 
-        <b-form-group
-          id="number1"
-          label="Shells"
-          label-for="number1"
-          >
-          <b-form-input
-            v-model="form.shells"
-            type="number"
-            max="100"
-            min="0"
-           ></b-form-input>
-        </b-form-group>
+         <FormulateInput
+              name="shells"
+              label="Shells:"
+              type="number"
+              max="100"
+              min="0"/>
 
-        <b-form-group
-          id="number2"
-          label="Infill"
-          label-for="number2"
-          >
-          <b-form-input
-            v-model="form.infill"
-            type="number"
-            max="100"
-            min="0"
-           ></b-form-input>
-        </b-form-group>
+         <FormulateInput
+              name="infill"
+              label="Infill:"
+              type="number"
+              max="100"
+              min="0"/>
 
-         <b-form-group
-          id="number3"
-          label="Top_bottom"
-          label-for="number3"
-          >
-          <b-form-input
-            v-model="form.top_bottom"
-            type="number"
-            max="100"
-            min="0"
-           ></b-form-input>
-        </b-form-group>
+         <FormulateInput
+              name="top_bottom"
+              label="Top bottom:"
+              type="number"
+              max="100"
+              min="0"/>
 
-        <b-form-group
-            id="input4"
-          label="Enter notes"
-          label-for="input4" >
-          <b-form-textarea
-            id="textarea"
-            v-model="form.notes"
-            type="notes"
-            placeholder="Please give a short description of the project"
-            rows = "3"
-            max-rows="10"
-          ></b-form-textarea>
-          <pre class="mt-3 mb-0">{{ form.notes }}</pre>
-        </b-form-group>
+         <FormulateInput
+              name="Notes"
+              type="textarea"
+              label="Notes:"
+              placeholder="Please give a short description of the project"
+              rows = "3"
+              max-rows="10"/>
+         <FormulateInput type="submit" value="Submit" />
+         <FormulateInput type="submit" value="Reset" />
 
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="danger">Reset</b-button>
-      </b-form>
-      <b-card class="mt-3" header="Form Data Result">
-        <pre class="m-0">{{ form }}</pre>
-      </b-card>
+       <pre>{{ values }}</pre>
+      </FormulateForm>
       </div>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        form: {
-          email: '',
-          name: '',
-          material: null,
-          notes: '',
-          shells: "",
-          infill: "",
-          top_bottom:""
-        },
-        material: [{ text: 'Select One', value: null }, 'Material1', 'Material1', 'Material1', 'Material1'],
-        show: true
-      }
+    data(){
+      return{
+        values:{}
+      };
     },
     methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form.filename = ''
-        this.form.email = ''
-        this.form.material = null
-        this.form.shells = ''
-        this.form.infill = ''
-        this.form.top_bottom = ''
-        this.form.notes = ''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+      onSubmit() {
+        /* do something with data:
+       * { email: 'zzz@zzz.com', password: 'xyz' }
+       */
+        alert("Successfully submitted")
       }
     }
-  }
+  };
 </script>
+

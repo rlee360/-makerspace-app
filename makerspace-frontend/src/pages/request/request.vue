@@ -3,13 +3,14 @@
     <h1>Request Form</h1>
     <FormulateForm
         @submit="onSubmit"
+        @reset="onReset"
         v-model="data_values">
 
       <FormulateInput
           type="file"
           name="files"
           label="Select your files to upload"
-          help="Select one or more docs to upload"
+          help="Select a file to upload (STL, DWG, SVG)"
       />
 
       <FormulateInput
@@ -25,52 +26,32 @@
           placeholder="Enter Name"
           label="Student Name:"/>
 
-
-      <FormulateInput
-          type="text"
-          name="material"
-          placeholder="Enter Material"
-          label="Material:"
-     />
-
       <FormulateInput
           type="text"
           name="class_id"
-          placeholder="class_id"
-          label="Class_id:"
-     />
+          placeholder="e.g. EID101, ME412, etc."
+          label="Cooper Class ID:"
+      />
 
-
-
-      <!--
-      <div class="inputs">
-        <FormulateInput
-          type="group"
-          :repeatable="false"
-          v-model="values"
-          #default="{ index }"
-        >
-          <div class="double">
-            <FormulateInput
-              type="select"
-              name="material"
-              label="Select a Material"
-              placeholder="Select one"
-              validation="required"
-              :options="{Material1: 'Material1', Material2: 'Material2', Material3: 'Material3'}"
-            />
-            <FormulateInput
-              type="select"
-              name="variant"
-              validation="required"
-              placeholder="Select one"
-              :label="label(index)"
-              :options="materialOptions(index)"
-            />
-          </div>
-        </FormulateInput>
-      </div>
-      -->
+      <FormulateInput
+          type="select"
+          name="material_type"
+          label="Select a Material"
+          placeholder="Select one"
+          validation="required"
+          :options="material_data.types"
+          @change="matChanged"
+      />
+      <FormulateInput
+          type="select"
+          name="material"
+          label="Select a Material"
+          placeholder="Select one"
+          validation="required"
+          error-behavior="submit"
+          v-if="material_data.changed === true"
+          :options="material_data.specifics"
+      />
 
       <FormulateInput
           name="shells"
@@ -103,7 +84,7 @@
       <FormulateInput type="submit" value="Submit"/>
       <FormulateInput type="submit" value="Reset"/>
     </FormulateForm>
-
+    <a v-bind:href="'/job/?id='+ job_id" v-if="this.job_id">Link to your submitted job!</a>
   </div>
 </template>
 
@@ -113,88 +94,57 @@ import axios from "axios";
 export default {
   data() {
     return {
-      values: [{}],
       requestData: {
         files: "",
       },
-      data_values : {},
-/*
-      options: {
-          Material1: {
-            blue1: 'blue1',
-            green1: 'green1',
-            red1: 'red1'
-          },
-          Material2: {
-            blue2: 'blue2',
-            green2: 'green2',
-            red2: 'red2'
-          },
-          Material3: {
-            blue3: 'blue3',
-            green3: 'green3',
-            red3: 'red3'
-          }
-        }
-        */
-
+      data_values: {},
+      material_data: {
+        types: [],
+        changed: false,
+        specifics: []
+      },
+      job_id: "",
     };
   },
+  async mounted() {
+    const res = await axios.get("http://localhost:5000/api/material/");
+    this.material_data.types = res.data;
+  },
   methods: {
-    async onSubmit() {
+    async matChanged() {
+      this.material_data.changed = true;
       window.data_values = this.data_values;
+      const res = await axios.get("http://localhost:5000/api/material/?type=" + this.data_values.material_type);
+      this.material_data.specifics = res.data;
+    },
+
+    async onSubmit() {
       this.data_values.files = this.data_values.files.files[0].file;
       this.data_values.filename = this.data_values.files.name;
-      let fff = new FormData();
-      Object.keys(this.data_values).forEach(
-          (i) => {fff.append(i, this.data_values[i])});
-      //fff.append('files', this.data_values.abc.files[0].file)
-      const res = await axios.post("http://localhost:5000/api/request/create", fff, {'Content-Type': 'multipart/form-data'});
-      console.log(res.data);
+      let form_data = new FormData();
+      Object.keys(this.data_values).forEach((key) => {
+        form_data.append(key, this.data_values[key]);
+      });
+      form_data.delete('material_type');
+      const res = await axios.post("http://localhost:5000/api/request/create", form_data, {'Content-Type': 'multipart/form-data'});
+      this.job_id = res.data.id;
       alert("Submitted");
 
     },
 
     onReset() {
-      this.values = {}
+      this.data_values = {}
     },
-
-    fileChanged(evt) {
-      console.log(evt);
-      this.requestData.files = evt.target.files[0];
-      console.log(this.requestData)
-    },
-
-    selectFile() {
-      console.log()
-      console.log("YO!", this.$refs.file.files);
-    },
-
-    /*
-    material (index) {
-      return Array.isArray(this.values) &&
-        this.values[index] &&
-        this.values[index].material
-    },
-    label (index) {
-      return this.material(index) ? `What type of ${this.material(index)}` : '----'
-    },
-    materialOptions (index) {
-      const type = this.material(index)
-      const options = type ? this.options[type] : {}
-      const values = this.values[index] || {}
-      const variant = values.variant
-      if (variant && !options[variant]) {
-        this.values[index].variant = undefined
-      }
-      return options
-    }
-    }
-    */
   }
 };
 </script>
 
 <style lang="scss">
 @import 'node_modules/@braid/vue-formulate/themes/snow/snow.scss';
+div {
+  //padding-left: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 </style>

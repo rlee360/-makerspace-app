@@ -19,7 +19,7 @@ def _get_material():
         return jsonify(res)
     else:
         res = query_material_types(request.args.get('type'))
-        res = [f"{mat['color']} ({mat['brand']})" for mat in res]
+        res = {str(mat['_id']): f"{mat['color']} ({mat['brand']})" for mat in res}
         return jsonify(res)
 
 

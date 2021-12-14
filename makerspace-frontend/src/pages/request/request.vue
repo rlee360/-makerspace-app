@@ -131,10 +131,11 @@ export default {
         form_data.append(key, this.data_values[key]);
       });
       form_data.delete('material_type');
+      form_data.delete('false');
       const res = await axios.post("http://localhost:5000/api/request/create", form_data, {'Content-Type': 'multipart/form-data'});
       this.job_id = res.data.id;
       //alert("Submitted");
-      window.location.href = '/job/?id='+ this.job_id;
+      //window.location.href = '/job/?id='+ this.job_id;
     },
 
     reset () {

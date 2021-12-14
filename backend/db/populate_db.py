@@ -196,6 +196,54 @@ material_docs = [
         "price": 20.99,
         "operator_notes": ["Cheap warping, do not buy again."]
     },
+    {
+        "type": "filament",
+        "material": "PLA",
+        "color": "purple",
+        "brand": "TTYT3D",
+        "grams_remaining": 200,
+        "link": "https://www.amazon.com/Dark-Violet-Purple-Printer-Filament/dp/B07WC8R1PD/ref=sr_1_2_sspa?keywords=esun+filament&qid=1639520806&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExQjdaQkdJVkFCRkJHJmVuY3J5cHRlZElkPUEwMjU0NTg2MkVIV0szWUs0WVBaOCZlbmNyeXB0ZWRBZElkPUEwMTg2NDI3MktQUTdPMkowUUc1SCZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=",
+        "notes": ["Good  quality"],
+        "valid_machines": ["FDM 1"],
+        "price": 24.99,
+        "operator_notes": ["Buy again."]
+    },
+    {
+        "type": "filament",
+        "material": "PLA",
+        "color": "red",
+        "brand": "eSun",
+        "grams_remaining": 400,
+        "link": "https://www.amazon.com/eSUN-Printer-Filament-Diameter-Pantone/dp/B07983PYHT/ref=sr_1_9?keywords=esun+filament&qid=1639520756&sr=8-9",
+        "notes": [],
+        "valid_machines": ["FDM 4"],
+        "price": 25.88,
+        "operator_notes": []
+    },
+    {
+        "type": "filament",
+        "material": "PLA",
+        "color": "black",
+        "brand": "eSun",
+        "grams_remaining": 900,
+        "link": "https://www.amazon.com/eSUN-Filament-Printer-Printing-Printers/dp/B08RS3FB37/ref=sr_1_14?keywords=esun%2Bfilament&qid=1639521086&sr=8-14&th=1",
+        "notes": [],
+        "valid_machines": ["FDM 1", "FDM 4"],
+        "price": 59.99,
+        "operator_notes": []
+    },
+    {
+        "type": "filament",
+        "material": "PLA",
+        "color": "black",
+        "brand": "Overture",
+        "grams_remaining": 700,
+        "link": "https://www.amazon.com/OVERTURE-Filament-Consumables-Dimensional-Accuracy/dp/B07PGYHYV8/ref=sr_1_1_sspa?keywords=pet+filament&qid=1639521317&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFBM1M5NFNLSTFNS0omZW5jcnlwdGVkSWQ9QTA3MDQzMTYzSk1SRjZCVFRXUlVNJmVuY3J5cHRlZEFkSWQ9QTA1MDg4MzQyWTJCUkVQOEFIMDVBJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
+        "notes": ["Good quality"],
+        "valid_machines": ["FDM 1", "FDM 4"],
+        "price": 21.99,
+        "operator_notes": []
+    },
 ]
 
 job_doc = {

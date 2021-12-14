@@ -28,6 +28,13 @@ module.exports = {
             title: 'Job View',
             chunks: ['chunk-vendors', 'chunk-common', 'job']
         },
+        'material': {
+            entry: './src/pages/material/main.js',
+            template: 'src/pages/material/material.html',
+            filename: 'material.html',
+            title: 'Material View',
+            chunks: ['chunk-vendors', 'chunk-common', 'material']
+        },
         'testing': {
             entry: './src/pages/testing/main.js',
             template: 'src/pages/testing/testing.html',

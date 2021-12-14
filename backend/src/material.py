@@ -97,7 +97,8 @@ def _add_material():
 
     post_data['grams_remaining'] = float(post_data['grams_remaining'])
     post_data['price'] = float(post_data['price'])
-    post_data['valid_machines'] = post_data['valid_machines'].split(', ')
+    print(post_data['valid_machines'],type(post_data['valid_machines']))
+    post_data['valid_machines'] = post_data['valid_machines']
 
     if 'operator_notes' not in post_data:
         post_data['operator_notes'] = []

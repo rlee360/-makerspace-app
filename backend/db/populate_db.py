@@ -171,7 +171,31 @@ material_docs = [
         "valid_machines": ["FDM 6"],
         "price": 21.99,
         "operator_notes": ["Excessive warping, do not buy again."]
-    }
+    },
+    {
+        "type": "filament",
+        "material": "PETG",
+        "color": "black",
+        "brand": "eSun",
+        "grams_remaining": 500,
+        "link": "https://www.amazon.com/eSUN-1-75mm-Filament-Printer-Opaque/dp/B00ZAUQZTA/ref=sr_1_5?keywords=esun+filament&qid=1639520018&sr=8-5",
+        "notes": ["Models with big bases prone to failing due to warping."],
+        "valid_machines": ["FDM 5","FDM 6"],
+        "price": 22.99,
+        "operator_notes": ["Cheap warping, buy again."]
+    },
+    {
+        "type": "filament",
+        "material": "PLA",
+        "color": "clear",
+        "brand": "eSun",
+        "grams_remaining": 700,
+        "link": "https://www.amazon.com/eSUN-1-75mm-Printer-Filament-2-2lbs/dp/B07QBM53H5/ref=sr_1_7?keywords=esun+filament&qid=1639520018&sr=8-7",
+        "notes": ["Breaks easily"],
+        "valid_machines": ["FDM 2","FDM 3"],
+        "price": 20.99,
+        "operator_notes": ["Cheap warping, do not buy again."]
+    },
 ]
 
 job_doc = {

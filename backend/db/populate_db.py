@@ -137,7 +137,7 @@ material_docs = [
     {
         "type": "filament",
         "material": "PLA",
-        "color": "black",
+        "color": "white",
         "brand": "Inland",
         "grams_remaining": 950,
         "link": "https://www.microcenter.com/product/632389/inland-175mm-white-pla-pro-3d-printer-filament-1kg-spool-(22-lbs)",

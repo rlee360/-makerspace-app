@@ -179,10 +179,10 @@ material_docs = [
         "brand": "eSun",
         "grams_remaining": 500,
         "link": "https://www.amazon.com/eSUN-1-75mm-Filament-Printer-Opaque/dp/B00ZAUQZTA/ref=sr_1_5?keywords=esun+filament&qid=1639520018&sr=8-5",
-        "notes": ["Models with big bases prone to failing due to warping."],
+        "notes": [""],
         "valid_machines": ["FDM 5","FDM 6"],
         "price": 22.99,
-        "operator_notes": ["Cheap warping, buy again."]
+        "operator_notes": ["Pretty inexpensive and prints quite well."]
     },
     {
         "type": "filament",
@@ -191,10 +191,10 @@ material_docs = [
         "brand": "eSun",
         "grams_remaining": 700,
         "link": "https://www.amazon.com/eSUN-1-75mm-Printer-Filament-2-2lbs/dp/B07QBM53H5/ref=sr_1_7?keywords=esun+filament&qid=1639520018&sr=8-7",
-        "notes": ["Breaks easily"],
+        "notes": [""],
         "valid_machines": ["FDM 2","FDM 3"],
         "price": 20.99,
-        "operator_notes": ["Cheap warping, do not buy again."]
+        "operator_notes": ["Material is very brittle"]
     },
     {
         "type": "filament",
@@ -203,7 +203,7 @@ material_docs = [
         "brand": "TTYT3D",
         "grams_remaining": 200,
         "link": "https://www.amazon.com/Dark-Violet-Purple-Printer-Filament/dp/B07WC8R1PD/ref=sr_1_2_sspa?keywords=esun+filament&qid=1639520806&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExQjdaQkdJVkFCRkJHJmVuY3J5cHRlZElkPUEwMjU0NTg2MkVIV0szWUs0WVBaOCZlbmNyeXB0ZWRBZElkPUEwMTg2NDI3MktQUTdPMkowUUc1SCZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=",
-        "notes": ["Good  quality"],
+        "notes": ["Very nice colors"],
         "valid_machines": ["FDM 1"],
         "price": 24.99,
         "operator_notes": ["Buy again."]
@@ -333,7 +333,7 @@ def main():
     create_col_schema(db, "operators", operator_schema)
     create_col_schema(db, "machines", machine_schema)
     db["materials"].insert_many(material_docs)
-    db["jobs"].insert_one(job_doc)
+    #db["jobs"].insert_one(job_doc)
     db["operators"].insert_one(operator_doc)
 
     machine_docs_dicts = map(machines_list_to_dict, machine_docs)

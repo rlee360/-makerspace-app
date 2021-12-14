@@ -22,9 +22,9 @@ def _update_request():
     post_data = request.get_json()
 
     update_id = post_data.get('id', None)
-    print(query_job(update_id))
 
-    if query_job(update_id) == None:
+    job = query_job(update_id)
+    if job == None:
         return jsonify({'status': 'failed', 'error': 'cannot find id'}), 400
 
     # format to correct type
@@ -76,12 +76,14 @@ def _update_request():
     res = update_request(update_id, post_data)
     print(res)
 
+    fns = job['filename'][job['filename'].find('-')+1:]
+
     try:
         if post_data['status'] == 'completed':
             mes = create_message('sonbyj01@gmail.com', 
                                 ', '.join(query_job(update_id)['email']), 
                                 '[Makerspace] Completed Print!', 
-                                'Your print is completed and is available for pick up.')
+                                f'Your print {fns} is completed and is available for pick up. http://localhost:8080/job?id={job["_id"]}')
             Gmail().send_message(mes)
     except Exception as e:
         print("Error sending email")

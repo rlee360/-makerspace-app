@@ -35,6 +35,13 @@ module.exports = {
             title: 'Material View',
             chunks: ['chunk-vendors', 'chunk-common', 'material']
         },
+        'materialupdate': {
+            entry: './src/pages/materialupdate/main.js',
+            template: 'src/pages/materialupdate/materialupdate.html',
+            filename: 'materialupdate.html',
+            title: 'Material Update View',
+            chunks: ['chunk-vendors', 'chunk-common', 'materialupdate']
+        },
         'testing': {
             entry: './src/pages/testing/main.js',
             template: 'src/pages/testing/testing.html',

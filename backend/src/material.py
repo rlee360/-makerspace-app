@@ -4,10 +4,12 @@ from flask import json, request, jsonify
 from flask.blueprints import Blueprint
 from markupsafe import escape
 from bson import json_util
+from flask_cors import CORS
 
 from db_queries import *
 
 material_bp = Blueprint('material', __name__, url_prefix='/api/material')
+CORS(material_bp, resources={r'/*': {'origins': '*'}})
 
 @material_bp.route('/update', methods=['POST'])
 def _update_material():

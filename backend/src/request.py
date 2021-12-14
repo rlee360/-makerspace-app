@@ -5,6 +5,7 @@ from flask.blueprints import Blueprint
 from markupsafe import escape
 from werkzeug.utils import secure_filename
 from bson import json_util
+from flask_cors import CORS
 
 from helper import *
 from db_queries import *
@@ -12,6 +13,7 @@ from db_queries import *
 import os
 
 request_bp = Blueprint('request', __name__, url_prefix='/api/request')
+CORS(request_bp, resources={r'/*': {'origins': '*'}})
 
 @request_bp.route('/update', methods=['POST'])
 def _update_request():

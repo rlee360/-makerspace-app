@@ -103,8 +103,9 @@ def _filter_requests():
     res = filter_requests(post_data)
     return jsonify({'status': 'success', 'filtered': json.loads(json_util.dumps(res))})
 
-@request_bp.route('/download/<path:filename>', methods=['GET'])
-def _download_request(filename):
+@request_bp.route('/download/<string:id>', methods=['GET'])
+def _download_request(id):
+    filename = query_job(id)['filename']
     pathing = os.path.join('./uploads', filename)
     return send_file(pathing, as_attachment=True)
 

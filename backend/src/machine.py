@@ -18,6 +18,6 @@ def _get_machine():
         res = [mac['_id'] for mac in res]
         return jsonify(res)
     else:
-        res = query_machines(request.args.get('machine'), False if request.args.get('maintenance') else True)
+        res = query_machines(request.args.get('machine'))
         res = [i for i in res] #{str(mat['_id']): f"{mat['color'].title()} ({mat['brand']})" for mat in res}
         return jsonify(res)

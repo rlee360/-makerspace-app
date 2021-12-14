@@ -183,7 +183,7 @@ job_doc = {
     "top_bottom": 4,
     "notes": "",
     "status": "inactive",
-    "machine": "FDM_1",
+    "machine": "",
     "queue_position": 1,
 }
 

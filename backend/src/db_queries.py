@@ -17,7 +17,7 @@ def query_machines(id=None, maintenance=False):
             {'$sort': {'_id': 1}}
         ])
     else:
-        return db['machines'].find({'_id': id, 'maintenance': maintenance})
+        return db['machines'].find({'_id': id})
 
 def query_material(query_id):
     res = db['materials'].find_one({'_id': ObjectId(query_id)})

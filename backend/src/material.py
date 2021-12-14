@@ -25,7 +25,7 @@ def _get_material():
 
 @material_bp.route('/update', methods=['POST'])
 def _update_material():
-    post_data = request.form.to_dict(flat=False)
+    post_data = request.get_json()
 
     update_id = post_data.pop('id', None)[0]
     print(query_material(update_id))
@@ -35,26 +35,26 @@ def _update_material():
     
     # format to correct type
     if 'type' in post_data:
-        post_data['type'] = post_data['type'][0]
+        post_data['type'] = post_data['type']
     if 'material' in post_data:
-        post_data['material'] = post_data['material'][0]
+        post_data['material'] = post_data['material']
     if 'color' in post_data:
-        post_data['color'] = post_data['color'][0]
+        post_data['color'] = post_data['color']
     if 'brand' in post_data:
-        post_data['brand'] = post_data['brand'][0]
+        post_data['brand'] = post_data['brand']
     if 'link' in post_data:
-        post_data['link'] = post_data['link'][0]
+        post_data['link'] = post_data['link']
 
     if 'grams_remaining' in post_data:
-        post_data['grams_remaining'] = float(post_data['grams_remaining'][0])
+        post_data['grams_remaining'] = float(post_data['grams_remaining'])
     if 'price' in post_data:
-        post_data['price'] = float(post_data['price'][0])
+        post_data['price'] = float(post_data['price'])
     if 'valid_machines' in post_data:
-        post_data['valid_machines'] = post_data['valid_machines'][0].split(', ')
+        post_data['valid_machines'] = post_data['valid_machines']
     if 'operator_notes' in post_data:
-        post_data['operator_notes'] = post_data['operator_notes'][0].split(', ')
+        post_data['operator_notes'] = post_data['operator_notes']
     if 'notes' in post_data:
-        post_data['notes'] = post_data['notes'][0].split(', ')
+        post_data['notes'] = post_data['notes']
 
     print(post_data)
     res = update_material(update_id, post_data)

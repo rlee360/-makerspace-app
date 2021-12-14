@@ -13,6 +13,12 @@ def query_material(query_id):
     res = db['materials'].find_one({'_id': ObjectId(query_id)})
     return res
 
+def query_material_types(mat=None):
+    if mat is None:
+        return db['materials'].aggregate([{'$group': {'_id': '$material'}}])
+    else:
+        return db['materials'].find({'material': mat})
+
 def filter_material(query):
     res = db['materials'].find(query)
     return res

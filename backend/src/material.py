@@ -11,6 +11,18 @@ from db_queries import *
 material_bp = Blueprint('material', __name__, url_prefix='/api/material')
 CORS(material_bp, resources={r'/*': {'origins': '*'}})
 
+@material_bp.route('/', methods=['GET'])
+def _get_material():
+    if not request.args:
+        res = query_material_types()
+        res = [mat_type['_id'] for mat_type in res]
+        return jsonify(res)
+    else:
+        res = query_material_types(request.args.get('type'))
+        res = [f"{mat['color']} ({mat['brand']})" for mat in res]
+        return jsonify(res)
+
+
 @material_bp.route('/update', methods=['POST'])
 def _update_material():
     post_data = request.form.to_dict(flat=False)

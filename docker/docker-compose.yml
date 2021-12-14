@@ -3,11 +3,22 @@ services:
     mongo:
         image: mongo
         container_name: mongo
+        network_mode: 'host'
         environment: 
             - PUID=1000
             - PGID=1000
         volumes:
             - ./db:/data/db
-        ports:
-            - 27017:27017
+        restart: unless-stopped
+
+    backend:
+        build: backend/.
+        container_name: backend
+        command: python3 /app/backend/src/app.py
+        network_mode: 'host'
+        environment:
+            - PUID=1000
+            - PGID=1000
+        # volumes:
+        #     - ./app:/app
         restart: unless-stopped

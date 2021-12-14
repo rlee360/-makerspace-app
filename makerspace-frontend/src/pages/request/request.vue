@@ -1,7 +1,11 @@
 <template>
   <div class="container mt-5 mb-5">
     <h1>Request Form</h1>
-    <FormulateForm class="inputs" @submit="onSubmit" v-model="values" @reset="onReset">
+    <FormulateForm
+
+        @submit="onSubmit"/>
+
+
       <FormulateInput
           name="file"
           label="File"
@@ -18,11 +22,43 @@
           label="Email address:"
           validation="required|email"/>
 
-      <FormulateInput
-          name="material"
-          label="Material:"
-          type="select"
-          :options="{ material1: 'material1', material2:'material2'}"/>
+      <div class="inputs">
+        <FormulateInput
+          type="group"
+          :repeatable="true"
+          add-label="+ Add Material"
+          v-model="values"
+          #default="{ index }"
+        >
+          <div class="double">
+            <FormulateInput
+              type="select"
+              name="material"
+              label="Select a Material"
+              placeholder="Select one"
+              validation="required"
+              :options="{Material1: 'Material1', Material2: 'Material2', Material3: 'Material3'}"
+            />
+            <FormulateInput
+              type="select"
+              name="variant"
+              validation="required"
+              placeholder="Select one"
+              :label="label(index)"
+              :options="materialOptions(index)"
+            />
+          </div>
+          <div>
+            <FormulateInput
+              v-if="values[index] && values[index].hasOwnProperty('variants') && values[index].variants === 'drip'"
+              type="checkbox"
+              name="roomForCream"
+              label="Leave me room for cream"
+            />
+          </div>
+        </FormulateInput>
+        <pre>{{ values }}</pre>
+      </div>
 
       <FormulateInput
           name="shells"
@@ -54,7 +90,6 @@
           max-rows="10"/>
       <FormulateInput type="submit" value="Submit"/>
       <FormulateInput type="submit" value="Reset"/>
-    </FormulateForm>
   </div>
 </template>
 
@@ -64,6 +99,7 @@
 export default {
   data() {
     return {
+      values: [{}],
       requestData: {
         files: {},
         email: "",
@@ -74,11 +110,30 @@ export default {
         infill: "",
         top_bottom: "",
         filename: ""
-      }
-    }
+      },
+      options: {
+          Material1: {
+            blue1: 'blue1',
+            green1: 'green1',
+            red1: 'red1'
+          },
+          Material2: {
+            blue2: 'blue2',
+            green2: 'green2',
+            red2: 'red2'
+          },
+          Material3: {
+            blue3: 'blue3',
+            green3: 'green3',
+            red3: 'red3'
+          }
+        }
+    };
   },
   methods: {
-    submitHandler() {
+    onSubmit() {
+    },
+    onReset() {
     },
     async fileChanged(e1) {
       console.log(e1);
@@ -90,9 +145,28 @@ export default {
     selectFile() {
       console.log()
       console.log("YO!", this.$refs.file.files);
+    },
+
+    material (index) {
+      return Array.isArray(this.values) &&
+        this.values[index] &&
+        this.values[index].material
+    },
+    label (index) {
+      return this.material(index) ? `What type of ${this.material(index)}` : '----'
+    },
+    materialOptions (index) {
+      const type = this.material(index)
+      const options = type ? this.options[type] : {}
+      const values = this.values[index] || {}
+      const variant = values.variant
+      if (variant && !options[variant]) {
+        this.values[index].variant = undefined
+      }
+      return options
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

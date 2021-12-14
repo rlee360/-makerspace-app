@@ -16,10 +16,11 @@
       <b>Material:</b> {{ `${material_data.color} ${material_data.material} (${material_data.brand})` }}
       <b>Shells:</b> {{ job_data.shells }}
       <b>Infill:</b> {{ job_data.infill }}
-      <b>Top Bottom:</b> {{ job_data.top_bottom }}
+      <b>Top and Bottom Layers:</b> {{ job_data.top_bottom }}
       <b>Email:</b> {{ JSON.stringify(job_data.email).slice(1, -1) }}
       <b>Submitted by:</b> {{ job_data.name }}
       <b>Class:</b> {{ job_data.class_id }}
+      <b>Date:</b> {{ job_data.datetime }}
       </pre>
 
     </div>

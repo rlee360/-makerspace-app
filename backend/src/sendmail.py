@@ -4,6 +4,7 @@ from ctypes import resize
 from flask import Flask, Blueprint, flash, json, request, redirect, url_for, jsonify
 from markupsafe import escape
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
 import os
 
 from bson import json_util
@@ -15,6 +16,7 @@ from db_queries import *
 from mail import *
 
 sendmail_bp = Blueprint('sendmail', __name__, url_prefix='/api/sendmail')
+CORS(sendmail_bp, resources={r'/*': {'origins': '*'}})
 
 @sendmail_bp.route('/', methods=['POST'])
 def send_mail():

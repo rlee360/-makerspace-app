@@ -16,6 +16,7 @@
     "sass": "^1.45.0",
     "sass-loader": "^10.2.0",
     "vue": "^2.6.11",
+    "vue-3d-model": "^1.4.0",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {

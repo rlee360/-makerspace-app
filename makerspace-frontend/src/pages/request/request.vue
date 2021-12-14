@@ -89,7 +89,7 @@
         @click="reset"
       />
     </FormulateForm>
-    <a v-bind:href="'/job/?id='+ job_id" v-if="this.job_id">Link to your submitted job!</a>
+<!--    <a v-bind:href="'/job/?id='+ job_id" v-if="this.job_id">Link to your submitted job!</a>-->
   </div>
 </template>
 
@@ -133,8 +133,8 @@ export default {
       form_data.delete('material_type');
       const res = await axios.post("http://localhost:5000/api/request/create", form_data, {'Content-Type': 'multipart/form-data'});
       this.job_id = res.data.id;
-      alert("Submitted");
-
+      //alert("Submitted");
+      window.location.href = '/job/?id='+ this.job_id;
     },
 
     reset () {

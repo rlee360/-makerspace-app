@@ -1,17 +1,17 @@
 <template>
   <div class="container mt-5 mb-5">
     <h1>Request Form</h1>
-    <FormulateForm class="inputs" @submit="onSubmit" v-model="values">
+    <FormulateForm class="inputs" @submit="onSubmit" @reset="onReset" v-model="data_values">
       <FormulateInput
           type="file"
-          name="files"
+          name="abc"
           label="Select your files to upload"
           help="Select one or more docs to upload"
       />
-      <FormulateInput type="submit" value="Submit"/>
-      <FormulateInput type="submit" value="Reset"/>
-      <pre>{{values}}</pre>
+      <FormulateInput type="submit" label="Submit"/>
+      <FormulateInput type="submit" label="Reset"/>
     </FormulateForm>
+    <input type="file" @change="fileChanged($event)"/>
   </div>
 </template>
 
@@ -30,23 +30,40 @@ export default {
         shells: "2",
         infill: "30",
         top_bottom: "3",
-        filename: "file.stl"
-      }
+        filename: "file.stl",
+        class_id: "ME420"
+      },
+      data_values : {}
     }
   },
   methods: {
-    submitHandler() {
+    fileChanged(evt) {
+      console.log(evt);
+      this.requestData.files = evt.target.files[0];
+      console.log(this.requestData)
     },
-    async fileSet(f) {
-      console.log(f);
-      const res = await axios.post("http://localhost:5000/api/request/create", this.requestData, {'Content-Type': 'multipart/form-data'});
+    // async fileSet(f) {
+    //   console.log(f);
+    //   const res = await axios.post("http://localhost:5000/api/request/create", this.requestData, {'Content-Type': 'multipart/form-data'});
+    //   console.log(res);
+    // },
+    // async onSubmit() {
+    //   console.log(this.requestData);
+    //    const res = await axios.post("http://localhost:5000/api/request/create", this.requestData, {'Content-Type': 'multipart/form-data'});
+    //    console.log(res);
+    // }
+    async onSubmit() {
+      window.data_values = this.data_values;
+      this.requestData.files = this.data_values.abc.files[0].file;
+      let fff = new FormData();
+      Object.keys(this.requestData).forEach((i) => {fff.append(i, this.requestData[i])});
+      //fff.append('files', this.data_values.abc.files[0].file)
+      const res = await axios.post("http://localhost:5000/api/request/create", fff, {'Content-Type': 'multipart/form-data'});
       console.log(res);
     },
-    async onSubmit() {
-      console.log(this.requestData);
-       const res = await axios.post("http://localhost:5000/api/request/create", this.requestData, {'Content-Type': 'multipart/form-data'});
-       console.log(res);
-    }
+    onReset() {
+      this.values = {}
+    },
   }
 }
 </script>

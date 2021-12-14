@@ -1,9 +1,9 @@
 # https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/
 
-from flask import json, request, jsonify
+from flask import json, request, jsonify, send_file
 from flask.blueprints import Blueprint
 from markupsafe import escape
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, send_from_directory
 from bson import json_util
 from flask_cors import CORS
 
@@ -102,6 +102,11 @@ def _filter_requests():
 
     res = filter_requests(post_data)
     return jsonify({'status': 'success', 'filtered': json.loads(json_util.dumps(res))})
+
+@request_bp.route('/download/<path:filename>', methods=['GET'])
+def _download_request(filename):
+    pathing = os.path.join('./uploads', filename)
+    return send_file(pathing, as_attachment=True)
 
 @request_bp.route('/create', methods=['POST'])
 def _create_request():

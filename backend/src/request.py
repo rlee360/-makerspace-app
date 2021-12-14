@@ -9,6 +9,7 @@ from flask_cors import CORS
 
 from helper import *
 from db_queries import *
+from sendmail import *
 
 import os
 
@@ -73,6 +74,17 @@ def _update_request():
     print(post_data)
     res = update_request(update_id, post_data)
     print(res)
+
+    try:
+        if post_data['status'] == 'completed':
+            mes = create_message('sonbyj01@gmail.com', 
+                                ', '.join(query_job(update_id)['email']), 
+                                '[Makerspace] Completed Print!', 
+                                'Your print is completed and is available for pick up.')
+            Gmail().send_message(mes)
+    except Exception as e:
+        pass
+
     return jsonify({'status': 'success', 'new_data': json.loads(json_util.dumps(res))})
 
 @request_bp.route('/status/<string:id>', methods=['GET'])

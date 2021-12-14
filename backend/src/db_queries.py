@@ -3,10 +3,10 @@ import os
 from bson.objectid import ObjectId
 from bson import json_util
 
-with open('../db/mongo_uri.txt') as f:
-    mongo_uri = f.readline().strip()
+# with open('../db/mongo_uri.txt') as f:
+#     mongo_uri = f.readline().strip()
 
-client = pymongo.MongoClient(mongo_uri)
+client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client["makerspace"]
 
 def query_material(query_id):

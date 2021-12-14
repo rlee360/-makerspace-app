@@ -1,5 +1,12 @@
 module.exports = {
     pages: {
+        'index': {
+            entry: 'public/main.js',
+            template: 'public/index.html',
+            filename: process.env.NODE_ENV === 'production' ? 'build/path/index.html' : 'index.html',
+            title: 'Makerspace Management Tool',
+            chunks: ['chunk-vendors', 'chunk-common', 'index']
+        },
         'request': {
             entry: './src/pages/request/main.js',
             template: 'src/pages/request/request.html',
@@ -14,13 +21,13 @@ module.exports = {
             title: 'Operator View',
             chunks: ['chunk-vendors', 'chunk-common', 'operator']
         },
-        'job': {
-            entry: './src/pages/job/main.js',
-            template: 'src/pages/job/job.html',
-            filename: 'job.html',
-            title: 'Job View',
-            chunks: ['chunk-vendors', 'chunk-common', 'job']
-        },
+        // 'job': {
+        //     entry: './src/pages/job/main.js',
+        //     template: 'src/pages/job/job.html',
+        //     filename: 'job.html',
+        //     title: 'Job View',
+        //     chunks: ['chunk-vendors', 'chunk-common', 'job']
+        // },
         'testing': {
             entry: './src/pages/testing/main.js',
             template: 'src/pages/testing/testing.html',

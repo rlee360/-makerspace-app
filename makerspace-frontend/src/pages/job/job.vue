@@ -1,7 +1,11 @@
 <template>
   <div class="card text-center m-3">
     <h5 class="card-header">Job View</h5>
-      <model-stl backgroundColor="#fee" :src="`http://localhost:5000/api/request/download/${job_data._id.$oid}`"></model-stl>
+    <div style="width:70%;margin:auto">
+      <model-stl backgroundColor="#fee"
+                 :lights="model_lights"
+                 :src="`http://localhost:5000/api/request/download/${job_data._id.$oid}`"></model-stl>
+    </div>
     <div class="card-body">
       <pre>
       <b>Job ID:</b> {{ job_data._id.$oid }}
@@ -31,7 +35,22 @@ export default {
   data() {
     return {
       job_data: [],
-      material_data: {}
+      material_data: {},
+      model_lights: [
+          {
+            type: 'HemisphereLight',
+            position: { x: 0, y: 1, z: 0 },
+            skyColor: 0xaaaaff,
+            groundColor: 0x806060,
+            intensity: 0.5,
+          },
+          {
+            type: 'DirectionalLight',
+            position: { x: 1, y: -1, z: 1 },
+            color: 0xffffff,
+            intensity: 0.8,
+          },
+      ]
     }
   },
   methods: {

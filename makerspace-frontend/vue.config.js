@@ -21,13 +21,13 @@ module.exports = {
             title: 'Operator View',
             chunks: ['chunk-vendors', 'chunk-common', 'operator']
         },
-        // 'job': {
-        //     entry: './src/pages/job/main.js',
-        //     template: 'src/pages/job/job.html',
-        //     filename: 'job.html',
-        //     title: 'Job View',
-        //     chunks: ['chunk-vendors', 'chunk-common', 'job']
-        // },
+        'job': {
+            entry: './src/pages/job/main.js',
+            template: 'src/pages/job/job.html',
+            filename: 'job.html',
+            title: 'Job View',
+            chunks: ['chunk-vendors', 'chunk-common', 'job']
+        },
         'testing': {
             entry: './src/pages/testing/main.js',
             template: 'src/pages/testing/testing.html',

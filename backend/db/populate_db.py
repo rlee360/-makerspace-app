@@ -55,7 +55,7 @@ job_schema = {
         "email": {"bsonType": ["string", "array"]},
         "name": {"bsonType": "string"},
         "class_id": {"bsonType": "string"},
-        "material": {"bsonType": "string"},
+        "material": {"bsonType": ["string", "objectId"]},
         "shells": {"bsonType": "int"},
         "infill" : {"bsonType": "int"},
         "top_bottom" : {"bsonType": "int"},

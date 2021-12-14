@@ -20,7 +20,7 @@
       <b>Email:</b> {{ JSON.stringify(job_data.email).slice(1, -1) }}
       <b>Submitted by:</b> {{ job_data.name }}
       <b>Class:</b> {{ job_data.class_id }}
-      <b>Date:</b> {{ job_data.datetime }}
+      <b>Date:</b> {{ new Date(job_data.datetime.$date) }}
       </pre>
 
     </div>

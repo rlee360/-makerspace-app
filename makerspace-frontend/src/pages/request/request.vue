@@ -2,18 +2,15 @@
   <div class="container mt-5 mb-5">
     <h1>Request Form</h1>
     <FormulateForm
-
-        @submit="onSubmit"/>
-
+        @submit="onSubmit"
+        v-model="data_values">
 
       <FormulateInput
-          name="file"
-          label="File"
-          type="Open File"
-          :state="Boolean(file1)"
-          placeholder="Choose a file or drop it here..."
-          drop-placeholder="Drop file here..."/>
-      <div class="mt-3">Selected file: {{ file1 ? file1.name : '' }}</div>
+          type="file"
+          name="files"
+          label="Select your files to upload"
+          help="Select one or more docs to upload"
+      />
 
       <FormulateInput
           type="email"
@@ -22,11 +19,34 @@
           label="Email address:"
           validation="required|email"/>
 
+      <FormulateInput
+          type="text"
+          name="name"
+          placeholder="Enter Name"
+          label="Student Name:"/>
+
+
+      <FormulateInput
+          type="text"
+          name="material"
+          placeholder="Enter Material"
+          label="Material:"
+     />
+
+      <FormulateInput
+          type="text"
+          name="class_id"
+          placeholder="class_id"
+          label="Class_id:"
+     />
+
+
+
+      <!--
       <div class="inputs">
         <FormulateInput
           type="group"
-          :repeatable="true"
-          add-label="+ Add Material"
+          :repeatable="false"
           v-model="values"
           #default="{ index }"
         >
@@ -48,17 +68,9 @@
               :options="materialOptions(index)"
             />
           </div>
-          <div>
-            <FormulateInput
-              v-if="values[index] && values[index].hasOwnProperty('variants') && values[index].variants === 'drip'"
-              type="checkbox"
-              name="roomForCream"
-              label="Leave me room for cream"
-            />
-          </div>
         </FormulateInput>
-        <pre>{{ values }}</pre>
       </div>
+      -->
 
       <FormulateInput
           name="shells"
@@ -82,7 +94,7 @@
           min="0"/>
 
       <FormulateInput
-          name="Notes"
+          name="notes"
           type="textarea"
           label="Notes:"
           placeholder="Please give a short description of the project"
@@ -90,27 +102,23 @@
           max-rows="10"/>
       <FormulateInput type="submit" value="Submit"/>
       <FormulateInput type="submit" value="Reset"/>
+    </FormulateForm>
+
   </div>
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   data() {
     return {
       values: [{}],
       requestData: {
-        files: {},
-        email: "",
-        name: "",
-        material: "",
-        notes: "",
-        shells: "",
-        infill: "",
-        top_bottom: "",
-        filename: ""
+        files: "",
       },
+      data_values : {},
+/*
       options: {
           Material1: {
             blue1: 'blue1',
@@ -128,25 +136,41 @@ export default {
             red3: 'red3'
           }
         }
+        */
+
     };
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
+      window.data_values = this.data_values;
+      this.data_values.files = this.data_values.files.files[0].file;
+      this.data_values.filename = this.data_values.files.name;
+      let fff = new FormData();
+      Object.keys(this.data_values).forEach(
+          (i) => {fff.append(i, this.data_values[i])});
+      //fff.append('files', this.data_values.abc.files[0].file)
+      const res = await axios.post("http://localhost:5000/api/request/create", fff, {'Content-Type': 'multipart/form-data'});
+      console.log(res.data);
+      alert("Submitted");
+
     },
+
     onReset() {
+      this.values = {}
     },
-    async fileChanged(e1) {
-      console.log(e1);
-      //const res = await axios.get("http://localhost:5000/vuetest", {ttt: "data"});
-      //const res = await axios.get("http://localhost:8080");
-      //console.log(res);
-      //this.test = res.data["Status"];
+
+    fileChanged(evt) {
+      console.log(evt);
+      this.requestData.files = evt.target.files[0];
+      console.log(this.requestData)
     },
+
     selectFile() {
       console.log()
       console.log("YO!", this.$refs.file.files);
     },
 
+    /*
     material (index) {
       return Array.isArray(this.values) &&
         this.values[index] &&
@@ -165,6 +189,8 @@ export default {
       }
       return options
     }
+    }
+    */
   }
 };
 </script>

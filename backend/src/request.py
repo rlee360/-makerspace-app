@@ -18,13 +18,13 @@ CORS(request_bp, resources={r'/*': {'origins': '*'}})
 
 @request_bp.route('/update', methods=['POST'])
 def _update_request():
-    post_data = request.form.to_dict(flat=False)
+    post_data = request.get_json()
 
-    update_id = post_data.pop('id', None)[0]
+    update_id = post_data.get('id', None)
     print(query_job(update_id))
 
     if query_job(update_id) == None:
-        return jsonify({'status': 'failed', 'error': 'cannot find id'})
+        return jsonify({'status': 'failed', 'error': 'cannot find id'}), 400
 
     # format to correct type
     if 'email' in post_data:
@@ -43,33 +43,33 @@ def _update_request():
 
     # one element to array
     if 'name' in post_data:
-        post_data['name'] = post_data['name'][0]
+        post_data['name'] = post_data['name']
     if 'notes' in post_data:
-        post_data['notes'] = post_data['notes'][0]
+        post_data['notes'] = post_data['notes']
     if 'filename' in post_data:
-        post_data['filename'] = post_data['filename'][0]
+        post_data['filename'] = post_data['filename']
     if 'class_id' in post_data:
-        post_data['class_id'] = post_data['class_id'][0]
+        post_data['class_id'] = post_data['class_id']
     if 'material' in post_data:
-        post_data['material'] = post_data['material'][0]
+        post_data['material'] = post_data['material']
     if 'status' in post_data:
-        post_data['status'] = post_data['status'][0]
+        post_data['status'] = post_data['status']
     if 'operator' in post_data:
-        post_data['operator'] = post_data['operator'][0]
+        post_data['operator'] = post_data['operator']
     if 'machine' in post_data:
-        post_data['machine'] = post_data['machine'][0]
+        post_data['machine'] = post_data['machine']
 
     # cast values to integer
     if 'shells' in post_data:
-        post_data['shells'] = int(post_data['shells'][0])
+        post_data['shells'] = int(post_data['shells'])
     if 'infill' in post_data:
-        post_data['infill'] = int(post_data['infill'][0])
+        post_data['infill'] = int(post_data['infill'])
     if 'top_bottom' in post_data:
-        post_data['top_bottom'] = int(post_data['top_bottom'][0])
+        post_data['top_bottom'] = int(post_data['top_bottom'])
     if 'material_used' in post_data:
-        post_data['material_used'] = int(post_data['material_used'][0])
+        post_data['material_used'] = int(post_data['material_used'])
     if 'queue_position' in post_data:
-        post_data['queue_position'] = int(post_data['queue_position'][0])
+        post_data['queue_position'] = int(post_data['queue_position'])
 
     print(post_data)
     res = update_request(update_id, post_data)
@@ -83,7 +83,7 @@ def _update_request():
                                 'Your print is completed and is available for pick up.')
             Gmail().send_message(mes)
     except Exception as e:
-        pass
+        pass # can write to a log
 
     return jsonify({'status': 'success', 'new_data': json.loads(json_util.dumps(res))})
 

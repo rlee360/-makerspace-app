@@ -6,6 +6,7 @@ from markupsafe import escape
 from werkzeug.utils import secure_filename, send_from_directory
 from bson import json_util
 from flask_cors import CORS
+import datetime
 
 from helper import *
 from db_queries import *
@@ -148,6 +149,7 @@ def _create_request():
     post_data['machine'] = ''
     post_data['material_used'] = 0
     post_data['queue_position'] = 0
+    post_data['datetime'] = datetime.datetime.now()
 
     print(post_data)
 

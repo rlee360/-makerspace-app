@@ -4,6 +4,7 @@ import bson
 import pymongo
 from bson.son import SON
 from bson.decimal128 import Decimal128
+import datetime
 
 """
 TODO List:
@@ -48,7 +49,8 @@ job_schema = {
         "infill",
         "top_bottom",
         "notes",
-        "status"
+        "status",
+        "datetime"
     ],
     "properties": {
         "filename": {"bsonType": "string"},
@@ -185,6 +187,7 @@ job_doc = {
     "status": "inactive",
     "machine": "",
     "queue_position": 1,
+    "datetime": datetime.datetime.now()
 }
 
 # job_doc = {

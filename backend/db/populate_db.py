@@ -118,7 +118,7 @@ material_doc = {
     "grams_remaining" : 300,
     "link" : "https://www.microcenter.com/product/632388/inland-175mm-black-pla-pro-3d-printer-filament-1kg-spool-(22-lbs)",
     "notes" : [],
-    "valid_machines": ["FDM 1", "FDM 2", "FDM 3", "FDM 4", "FDM 5", "FDM 6"],
+    "valid_machines": ["FDM_1", "FDM_2", "FDM_3", "FDM_4", "FDM_5", "FDM_6"],
     "price": 18.99,
     "operator_notes" : []
 }
@@ -132,7 +132,7 @@ material_docs = [
         "grams_remaining": 300,
         "link": "https://www.microcenter.com/product/632388/inland-175mm-black-pla-pro-3d-printer-filament-1kg-spool-(22-lbs)",
         "notes": [],
-        "valid_machines": ["FDM 1", "FDM 2", "FDM 3", "FDM 4", "FDM 5", "FDM 6"],
+        "valid_machines": ["FDM_1", "FDM_2", "FDM_3", "FDM_4", "FDM_5", "FDM_6"],
         "price": 18.99,
         "operator_notes": []
     },
@@ -144,7 +144,7 @@ material_docs = [
         "grams_remaining": 950,
         "link": "https://www.microcenter.com/product/632389/inland-175mm-white-pla-pro-3d-printer-filament-1kg-spool-(22-lbs)",
         "notes": [],
-        "valid_machines": ["FDM 1", "FDM 2", "FDM 3", "FDM 4", "FDM 5", "FDM 6"],
+        "valid_machines": ["FDM_1", "FDM_2", "FDM_3", "FDM_4", "FDM_5", "FDM_6"],
         "price": 18.99,
         "operator_notes": ["Seem to have complaints about poor outer wall finish. Might be inaccurate filament"]
     },
@@ -156,7 +156,7 @@ material_docs = [
         "grams_remaining": 1000,
         "link": "https://atomicfilament.com/products/bright-white-opaque-petg-pro?_pos=1&_sid=b3a57fe67&_ss=r&variant=11046098497",
         "notes": [],
-        "valid_machines": ["FDM 4", "FDM 5", "FDM 6"],
+        "valid_machines": ["FDM_4", "FDM_5", "FDM_6"],
         "price": 32.99,
         "operator_notes": ["Expensive, but prints really well"]
     },
@@ -168,7 +168,7 @@ material_docs = [
         "grams_remaining": 800,
         "link": "https://www.amazon.com/HATCHBOX-3D-Filament-Dimensional-Accuracy/dp/B00J0H3PG0/?th=1",
         "notes": ["Models with small bases prone to failing due to warping."],
-        "valid_machines": ["FDM 6"],
+        "valid_machines": ["FDM_6"],
         "price": 21.99,
         "operator_notes": ["Excessive warping, do not buy again."]
     },
@@ -180,7 +180,7 @@ material_docs = [
         "grams_remaining": 500,
         "link": "https://www.amazon.com/eSUN-1-75mm-Filament-Printer-Opaque/dp/B00ZAUQZTA/ref=sr_1_5?keywords=esun+filament&qid=1639520018&sr=8-5",
         "notes": [""],
-        "valid_machines": ["FDM 5","FDM 6"],
+        "valid_machines": ["FDM_5","FDM_6"],
         "price": 22.99,
         "operator_notes": ["Pretty inexpensive and prints quite well."]
     },
@@ -192,7 +192,7 @@ material_docs = [
         "grams_remaining": 700,
         "link": "https://www.amazon.com/eSUN-1-75mm-Printer-Filament-2-2lbs/dp/B07QBM53H5/ref=sr_1_7?keywords=esun+filament&qid=1639520018&sr=8-7",
         "notes": [""],
-        "valid_machines": ["FDM 2","FDM 3"],
+        "valid_machines": ["FDM_2","FDM_3"],
         "price": 20.99,
         "operator_notes": ["Material is very brittle"]
     },
@@ -204,7 +204,7 @@ material_docs = [
         "grams_remaining": 200,
         "link": "https://www.amazon.com/Dark-Violet-Purple-Printer-Filament/dp/B07WC8R1PD/ref=sr_1_2_sspa?keywords=esun+filament&qid=1639520806&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExQjdaQkdJVkFCRkJHJmVuY3J5cHRlZElkPUEwMjU0NTg2MkVIV0szWUs0WVBaOCZlbmNyeXB0ZWRBZElkPUEwMTg2NDI3MktQUTdPMkowUUc1SCZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=",
         "notes": ["Very nice colors"],
-        "valid_machines": ["FDM 1"],
+        "valid_machines": ["FDM_1"],
         "price": 24.99,
         "operator_notes": ["Buy again."]
     },
@@ -216,7 +216,7 @@ material_docs = [
         "grams_remaining": 400,
         "link": "https://www.amazon.com/eSUN-Printer-Filament-Diameter-Pantone/dp/B07983PYHT/ref=sr_1_9?keywords=esun+filament&qid=1639520756&sr=8-9",
         "notes": [],
-        "valid_machines": ["FDM 4"],
+        "valid_machines": ["FDM_4"],
         "price": 25.88,
         "operator_notes": []
     },
@@ -228,7 +228,7 @@ material_docs = [
         "grams_remaining": 900,
         "link": "https://www.amazon.com/eSUN-Filament-Printer-Printing-Printers/dp/B08RS3FB37/ref=sr_1_14?keywords=esun%2Bfilament&qid=1639521086&sr=8-14&th=1",
         "notes": [],
-        "valid_machines": ["FDM 1", "FDM 4"],
+        "valid_machines": [],
         "price": 59.99,
         "operator_notes": []
     },
@@ -240,7 +240,7 @@ material_docs = [
         "grams_remaining": 700,
         "link": "https://www.amazon.com/OVERTURE-Filament-Consumables-Dimensional-Accuracy/dp/B07PGYHYV8/ref=sr_1_1_sspa?keywords=pet+filament&qid=1639521317&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFBM1M5NFNLSTFNS0omZW5jcnlwdGVkSWQ9QTA3MDQzMTYzSk1SRjZCVFRXUlVNJmVuY3J5cHRlZEFkSWQ9QTA1MDg4MzQyWTJCUkVQOEFIMDVBJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
         "notes": ["Good quality"],
-        "valid_machines": ["FDM 1", "FDM 4"],
+        "valid_machines": ["FDM_1", "FDM_4"],
         "price": 21.99,
         "operator_notes": []
     },

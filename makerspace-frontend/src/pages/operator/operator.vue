@@ -9,7 +9,7 @@
             <div class="bg-white mt-3 p-2 shadow border rounded">
               <a :href="`//localhost:5000/api/request/download/${job._id.$oid}`">{{ job.filename }}</a>
               <br>
-              <b>Material:</b> {{ job.material }}
+              <b>Material:</b> {{ job.material_str }}
             </div>
           </div>
         </draggable>
@@ -23,7 +23,7 @@
                 <div class="bg-white mt-3 p-2 shadow border rounded">
                   <a :href="`//localhost:5000/api/request/download/${job._id.$oid}`">{{ job.filename }}</a>
                   <br>
-                  <b>Material:</b> {{ job.material }}
+                  <b>Material:</b> {{ job.material_str }}
                 </div>
               </div>
             </draggable>
@@ -38,7 +38,7 @@
               <div class="bg-white mt-3 p-2 shadow border rounded">
                 <a :href="`//localhost:5000/api/request/download/${job._id.$oid}`">{{ job.filename }}</a>
                 <br>
-                <b>Material:</b> {{ job.material }}
+                <b>Material:</b> {{ job.material_str }}
               </div>
             </div>
           </draggable>
@@ -60,6 +60,7 @@ export default {
     return {
       jobs: [],
       machines: [],
+      materials: []
     };
   },
   async mounted() {
@@ -70,7 +71,8 @@ export default {
     for (const el of jr) {
       if (!el.material) continue;
       res = await axios.get("http://localhost:5000/api/material/view/" + el['material']);
-      el['material'] = `${res.data['color']} ${res.data['material']} (${res.data['brand']})`
+      el['material_str'] = `${res.data['color']} ${res.data['material']} (${res.data['brand']})`;
+      el['material'] = res.data;
       this.jobs.push(el);
     }
     let res = await axios.get("http://localhost:5000/api/machine/?maintenance=False");
@@ -93,8 +95,18 @@ export default {
   },
   methods: {
     async modifyJob(evt, mid) {
-      window.rr = evt;
       if (!evt.added) return;
+      window.a = this.machines;
+      window.aa = evt.added;
+      window.aaa = mid;
+      if(!evt.added.element.material.valid_machines.includes(mid)) {
+        //window.location.reload();
+        let machine = this.machines.find(m => m._id === mid)
+        machine.jobs = machine.jobs.filter(a => a._id.$oid !== evt.added.element._id.$oid);
+        this.incomplete_jobs.push(evt.added.element);
+        //window.location.href = '/operator';
+        return;
+      }
       let req_data = {
         "id": evt.added.element._id.$oid,
         "machine": mid,

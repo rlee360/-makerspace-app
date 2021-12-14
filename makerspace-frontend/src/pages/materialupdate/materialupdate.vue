@@ -79,9 +79,7 @@
      <FormulateInput
           name="price"
           label="Price:"
-          type="number"
-          max="100"
-          min="0"
+          type="text"
           v-model="defaultVals.price"/>
 
      <FormulateInput
@@ -141,7 +139,6 @@ export default {
       window.ttt = this.data_values.material;
       const result = await axios.get("http://localhost:5000/api/material/view/" + this.data_values.material);
       this.defaultVals = result.data;
-      window.abc = this.defaultVals;
     },
     async matChanged() {
       this.material_data.changed = true;

@@ -2,8 +2,9 @@
   <div class="container mt-5 mb-5">
     <h1>Request Form</h1>
     <FormulateForm
+        name="submission"
         @submit="onSubmit"
-        @reset="onReset"
+        :key="resetValues"
         v-model="data_values">
 
       <FormulateInput
@@ -82,7 +83,12 @@
           rows="3"
           max-rows="10"/>
       <FormulateInput type="submit" value="Submit"/>
-      <FormulateInput type="submit" value="Reset"/>
+      <FormulateInput
+        type="button"
+        label="Reset"
+        data-ghost
+        @click="reset"
+      />
     </FormulateForm>
     <a v-bind:href="'/job/?id='+ job_id" v-if="this.job_id">Link to your submitted job!</a>
   </div>
@@ -132,8 +138,8 @@ export default {
 
     },
 
-    onReset() {
-      this.data_values = {}
+    reset () {
+      this.$formulate.reset('submission')
     },
   }
 };
@@ -143,8 +149,8 @@ export default {
 @import 'node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 div {
   //padding-left: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  //margin-left: auto;
+  //margin-right: auto;
+  //text-align: center;
 }
 </style>

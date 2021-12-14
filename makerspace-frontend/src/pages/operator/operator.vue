@@ -29,13 +29,13 @@
       <div class="col">
         <div class="col mx-2 px-2 py-3 bg-light border rounded" style="max-height:300px">
           <h6>Completed</h6>
-          <!--          <draggable class="draggable-list" :list="tasks.completed" group="tasks">-->
-          <!--            <div v-for="(task, i) in tasks.completed" :key="i">-->
-          <!--              <div class="bg-white mt-3 p-2 shadow border rounded">-->
-          <!--                <p>{{ task.title }}</p>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </draggable>-->
+                    <draggable class="draggable-list" :list="completed_jobs" group="_jobs" @change="completed">
+                      <div v-for="job in completed_jobs" :key="job._id.$oid">
+                        <div class="bg-white mt-3 p-2 shadow border rounded">
+                          <p>{{ job.filename }}</p>
+                        </div>
+                      </div>
+                    </draggable>
         </div>
       </div>
     </div>
@@ -54,7 +54,6 @@ export default {
     return {
       jobs: [],
       machines: [],
-      completed_jobs: []
     };
   },
   async mounted() {
@@ -68,12 +67,15 @@ export default {
       this.machines.push(res.data[0]);
     }
     for (const mac of this.machines) {
-      mac.jobs = this.jobs.filter((el) => el.machine === mac._id);
+      mac.jobs = this.jobs.filter((el) => el.machine === mac._id && el.status === 'queued').sort((el1, el2) => el1.datetime - el2.datetime);
     }
   },
   computed: {
     incomplete_jobs() {
-      return this.jobs.filter((el) => el.status === 'inactive');
+      return this.jobs.filter((el) => el.status === 'inactive').sort((el1, el2) => el2.datetime - el1.datetime);
+    },
+    completed_jobs() {
+      return this.jobs.filter((el) => el.status === 'completed').sort((el1, el2) => el2.datetime - el1.datetime);
     }
   },
   methods: {
@@ -88,6 +90,15 @@ export default {
       const res = await axios.post("http://localhost:5000/api/request/update", req_data, {'Content-Type': 'application/json'});
       console.log(res);
       evt.added.element.status = 'queued';
+    },
+    async completed(evt) {
+      if (!evt.added) return;
+      let req_data = {
+        "id": evt.added.element._id.$oid,
+        "status": "completed"
+      }
+      await axios.post("http://localhost:5000/api/request/update", req_data, {'Content-Type': 'application/json'});
+      evt.added.element.status = 'completed';
     }
   }
 };

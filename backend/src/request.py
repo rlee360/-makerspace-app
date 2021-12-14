@@ -84,6 +84,7 @@ def _update_request():
                                 'Your print is completed and is available for pick up.')
             Gmail().send_message(mes)
     except Exception as e:
+        print("Error sending email")
         pass # can write to a log
 
     return jsonify({'status': 'success', 'new_data': json.loads(json_util.dumps(res))})

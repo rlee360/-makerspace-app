@@ -7,7 +7,9 @@
         <draggable class="draggable-list" :list="incomplete_jobs" group="_jobs">
           <div v-for="job in incomplete_jobs" :key="job._id.$oid">
             <div class="bg-white mt-3 p-2 shadow border rounded">
-              <p>{{ job.filename }}</p>
+              <a :href="`//localhost:5000/api/request/download/${job._id.$oid}`">{{ job.filename }}</a>
+              <br>
+              <b>Material:</b> {{ job.material }}
             </div>
           </div>
         </draggable>
@@ -19,7 +21,9 @@
             <draggable class="draggable-list" :list="mac.jobs" group="_jobs" @change="(e) => modifyJob(e, mac._id)">
               <div v-for="job in mac.jobs" :key="job._id.$oid">
                 <div class="bg-white mt-3 p-2 shadow border rounded">
-                  <p>{{ job.filename }}</p>
+                  <a :href="`//localhost:5000/api/request/download/${job._id.$oid}`">{{ job.filename }}</a>
+                  <br>
+                  <b>Material:</b> {{ job.material }}
                 </div>
               </div>
             </draggable>
@@ -27,15 +31,17 @@
         </div>
       </div>
       <div class="col">
-        <div class="col mx-2 px-2 py-3 bg-light border rounded" style="max-height:300px">
+        <div class="col mx-2 px-2 py-3 bg-light border rounded">
           <h6>Completed</h6>
-                    <draggable class="draggable-list" :list="completed_jobs" group="_jobs" @change="completed">
-                      <div v-for="job in completed_jobs" :key="job._id.$oid">
-                        <div class="bg-white mt-3 p-2 shadow border rounded">
-                          <p>{{ job.filename }}</p>
-                        </div>
-                      </div>
-                    </draggable>
+          <draggable class="draggable-list" :list="completed_jobs" group="_jobs" @change="completed">
+            <div v-for="job in completed_jobs" :key="job._id.$oid">
+              <div class="bg-white mt-3 p-2 shadow border rounded">
+                <a :href="`//localhost:5000/api/request/download/${job._id.$oid}`">{{ job.filename }}</a>
+                <br>
+                <b>Material:</b> {{ job.material }}
+              </div>
+            </div>
+          </draggable>
         </div>
       </div>
     </div>
@@ -59,7 +65,14 @@ export default {
   async mounted() {
     let job_query = {};
     res = await axios.post("http://localhost:5000/api/request/filter", job_query, {'Content-Type': 'multipart/form-data'});
-    this.jobs = res.data.filtered;
+    let jr = res.data.filtered;
+    window.jr = jr;
+    for (const el of jr) {
+      if (!el.material) continue;
+      res = await axios.get("http://localhost:5000/api/material/view/" + el['material']);
+      el['material'] = `${res.data['color']} ${res.data['material']} (${res.data['brand']})`
+      this.jobs.push(el);
+    }
     let res = await axios.get("http://localhost:5000/api/machine/?maintenance=False");
     let m = res.data;
     for (const el of m) {

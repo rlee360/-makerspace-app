@@ -58,21 +58,27 @@
           label="Shells:"
           type="number"
           max="100"
-          min="0"/>
+          min="0"
+          v-model="defaultVals.shells"
+      />
 
       <FormulateInput
           name="infill"
           label="Infill:"
           type="number"
           max="100"
-          min="0"/>
+          min="0"
+          v-model="defaultVals.infill"
+      />
 
       <FormulateInput
           name="top_bottom"
-          label="Top bottom:"
+          label="Number of Top and Bottom Layers:"
           type="number"
           max="100"
-          min="0"/>
+          min="0"
+          v-model="defaultVals.top_bottom"
+      />
 
       <FormulateInput
           name="notes"
@@ -99,6 +105,11 @@ import axios from "axios";
 export default {
   data() {
     return {
+      defaultVals: {
+        shells:2,
+        infill:20,
+        top_bottom:4,
+      },
       requestData: {
         files: "",
       },

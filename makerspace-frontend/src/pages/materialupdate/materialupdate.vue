@@ -23,7 +23,9 @@
           validation="required"
           error-behavior="submit"
           v-if="material_data.changed === true"
-          :options="material_data.specifics"/>
+          :options="material_data.specifics"
+          @change="id_picked"
+      />
 
      <FormulateInput
           type="text"
@@ -123,7 +125,8 @@ export default {
         color:[]
       },
       material_id: "",
-      machines
+      defaultVals: {},
+      machines_data: [],
     };
   },
   async mounted() {
@@ -134,12 +137,17 @@ export default {
   },
 
   methods: {
+    async id_picked() {
+      window.ttt = this.data_values.material;
+      const result = await axios.get("http://localhost:5000/api/material/view/" + this.data_values.material);
+      this.defaultVals = result.data;
+      window.abc = this.defaultVals;
+    },
     async matChanged() {
       this.material_data.changed = true;
       window.data_values = this.data_values;
       const result = await axios.get("http://localhost:5000/api/material/?type=" + this.data_values.material_type);
       this.material_data.specifics = result.data;
-      window.mm = this.material_data.specifics
     },
 
     async onSubmit() {

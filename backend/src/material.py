@@ -87,17 +87,17 @@ def _filter_material():
 
 @material_bp.route('/add', methods=['POST'])
 def _add_material():
-    post_data = request.form.to_dict(flat=False)
+    post_data = request.get_json()
 
-    post_data['type'] = post_data['type'][0]
-    post_data['material'] = post_data['material'][0]
-    post_data['color'] = post_data['color'][0]
-    post_data['brand'] = post_data['brand'][0]
-    post_data['link'] = post_data['link'][0]
+    post_data['type'] = post_data['type']
+    post_data['material'] = post_data['material']
+    post_data['color'] = post_data['color']
+    post_data['brand'] = post_data['brand']
+    post_data['link'] = post_data['link']
 
-    post_data['grams_remaining'] = float(post_data['grams_remaining'][0])
-    post_data['price'] = float(post_data['price'][0])
-    post_data['valid_machines'] = post_data['valid_machines'][0].split(', ')
+    post_data['grams_remaining'] = float(post_data['grams_remaining'])
+    post_data['price'] = float(post_data['price'])
+    post_data['valid_machines'] = post_data['valid_machines'].split(', ')
 
     if 'operator_notes' not in post_data:
         post_data['operator_notes'] = []

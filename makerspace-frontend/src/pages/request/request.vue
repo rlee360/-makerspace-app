@@ -4,7 +4,6 @@
     <FormulateForm
         name="submission"
         @submit="onSubmit"
-        :key="resetValues"
         v-model="data_values">
 
       <FormulateInput

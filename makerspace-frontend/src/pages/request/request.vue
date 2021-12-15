@@ -14,17 +14,29 @@
       />
 
       <FormulateInput
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          label="Email address:"
-          validation="required|email"/>
+        type="group"
+        name="students"
+        :repeatable="true"
+        label="Who should be notified?"
+        add-label="+ Add Another Email"
+        validation="required"
+      >
+        <div class="user">
 
-      <FormulateInput
+          <FormulateInput
           type="text"
           name="name"
           placeholder="Enter Name"
           label="Student Name:"/>
+
+          <FormulateInput
+            type="email"
+            name="email"
+            validation="required|email"
+            label="Email Address:"
+          />
+        </div>
+      </FormulateInput>
 
       <FormulateInput
           type="text"
@@ -83,7 +95,7 @@
       <FormulateInput
           name="notes"
           type="textarea"
-          label="Notes:"
+          label="Notes (split each note with a new line):"
           placeholder="Please give a short description of the project"
           rows="3"
           max-rows="10"/>
@@ -137,16 +149,15 @@ export default {
     async onSubmit() {
       this.data_values.files = this.data_values.files.files[0].file;
       this.data_values.filename = this.data_values.files.name;
+      this.data_values.email = this.data_values.students.map(el => el.email);
+      this.data_values.name = this.data_values.students.map(el => el.name);
       let form_data = new FormData();
       Object.keys(this.data_values).forEach((key) => {
-        form_data.append(key, this.data_values[key]);
+        if(key === 'students' || key === 'material_type' || key === 'false') {}
+        else form_data.append(key, this.data_values[key]);
       });
-      form_data.delete('material_type');
-      form_data.delete('false');
       const res = await axios.post("http://localhost:5000/api/request/create", form_data, {'Content-Type': 'multipart/form-data'});
-      this.job_id = res.data.id;
-      //alert("Submitted");
-      window.location.href = '/job/?id='+ this.job_id;
+      //window.location.href = '/job/?id='+ res.data.id;
     },
 
     reset () {

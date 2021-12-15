@@ -55,7 +55,7 @@ job_schema = {
     "properties": {
         "filename": {"bsonType": "string"},
         "email": {"bsonType": ["string", "array"]},
-        "name": {"bsonType": "string"},
+        "name": {"bsonType": ["string", "array"]},
         "class_id": {"bsonType": "string"},
         "material": {"bsonType": ["string", "objectId"]},
         "shells": {"bsonType": "int"},
@@ -67,6 +67,7 @@ job_schema = {
         "machine" : {"bsonType": ["string", "objectId"]},
         "material_used" : {"bsonType": "int"},
         "queue_position" : {"bsonType": "int"},
+        "newMessageFlag" : {"bsonType": "bool"},
     }
 }
 

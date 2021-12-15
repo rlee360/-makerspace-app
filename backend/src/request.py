@@ -31,14 +31,14 @@ def _update_request():
     if 'email' in post_data:
         # parse and validate emails
         invalid_emails = []
-        parsed_emails = parse_emails(post_data['email'][0])
+        parsed_emails = post_data['email'][0]
 
         for email in parsed_emails:
             if not valid_email(email):
                 invalid_emails.append(email)
 
         if invalid_emails != []:
-            return jsonify({'error': "Following emails are not cooper.edu: {}".format(invalid_emails)})
+            return jsonify({'error': "Following emails are not cooper.edu: {}".format(invalid_emails)}), 400
         else: 
             post_data['email'] = parsed_emails
 
@@ -122,21 +122,26 @@ def _create_request():
     post_data = request.form.to_dict(flat=False)
 
     # parse and validate emails
+    print(post_data)
     invalid_emails = []
-    parsed_emails = parse_emails(post_data['email'][0])
+    parsed_emails = post_data['email']
 
     for email in parsed_emails:
         if not valid_email(email):
             invalid_emails.append(email)
 
     if invalid_emails != []:
-        return jsonify({'error': "Following emails are not cooper.edu: {}".format(invalid_emails)})
+        return jsonify({'error': "Following emails are not cooper.edu: {}".format(invalid_emails)}), 400
     else: 
         post_data['email'] = parsed_emails
 
+    post_data['name'] = post_data['name']
+
+    #notes are optional
+    if 'notes' in post_data:
+        post_data['notes'] = post_data['notes'].split('\n')
+
     # one element to array
-    post_data['name'] = post_data['name'][0]
-    post_data['notes'] = post_data['notes'][0]
     post_data['filename'] = post_data['filename'][0]
     post_data['class_id'] = post_data['class_id'][0]
     post_data['material'] = post_data['material'][0]

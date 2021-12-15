@@ -48,7 +48,6 @@ job_schema = {
         "shells",
         "infill",
         "top_bottom",
-        "notes",
         "status",
         "datetime"
     ],

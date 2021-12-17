@@ -1,0 +1,1 @@
+curl http://localhost:5000/api/request/status/$1

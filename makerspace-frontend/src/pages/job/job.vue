@@ -18,7 +18,7 @@
       <b>Infill:</b> {{ job_data.infill }}
       <b>Top and Bottom Layers:</b> {{ job_data.top_bottom }}
       <b>Email:</b> {{ JSON.stringify(job_data.email).slice(1, -1) }}
-      <b>Submitted by:</b> {{ job_data.name }}
+      <b>Submitted by:</b> {{ JSON.stringify(job_data.name).slice(1, -1) }}
       <b>Class:</b> {{ job_data.class_id }}
       <b>Date:</b> {{ new Date(job_data.datetime.$date) }}
       </pre>

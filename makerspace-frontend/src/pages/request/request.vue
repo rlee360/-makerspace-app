@@ -153,11 +153,12 @@ export default {
       this.data_values.name = this.data_values.students.map(el => el.name);
       let form_data = new FormData();
       Object.keys(this.data_values).forEach((key) => {
-        if(key === 'students' || key === 'material_type' || key === 'false') {}
-        else form_data.append(key, this.data_values[key]);
+        if(key !== 'students' && key !== 'material_type' && key !== 'false') {
+          form_data.append(key, this.data_values[key]);
+        }
       });
       const res = await axios.post("http://localhost:5000/api/request/create", form_data, {'Content-Type': 'multipart/form-data'});
-      //window.location.href = '/job/?id='+ res.data.id;
+      window.location.href = '/job/?id='+ res.data.id;
     },
 
     reset () {
